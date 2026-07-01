@@ -4,14 +4,8 @@ import { IoStar } from "react-icons/io5";
 
 export default function Hero() {
   return (
-    <section
-      className="relative min-h-screen bg-cover bg-center"
-      style={{
-        backgroundImage: "url('/images/hero-bg.jpg')",
-      }}
-    >
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/45"></div>
+ <section>
+
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-28 lg:pt-36">
 
@@ -97,17 +91,7 @@ export default function Hero() {
 
           <div className="relative flex justify-center">
 
-            {/* Main Plant */}
-
-            <Image
-              src="/images/hero-plant.png"
-              alt="Indoor Plant"
-              width={650}
-              height={750}
-              priority
-              className="drop-shadow-2xl object-contain"
-            />
-
+            
             {/* Floating Card */}
 
             <div className="absolute bottom-12 right-0 lg:right-4 bg-white/15 backdrop-blur-xl border border-white/20 rounded-3xl p-6 w-72 shadow-xl">

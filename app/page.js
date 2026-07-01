@@ -3,12 +3,19 @@ import Hero from "@/app/components/Hero";
 import FeaturedPlants from "@/app/components/Featuredplant";
 export default function Home() {
   return (
-    <main>
+    <main
+       
+  className="relative min-h-screen bg-cover bg-center bg-no-repeat"
+  style={{
+    backgroundImage: "url('/images/bg-plant.png')",
+  }}
+>
 
       <Navbar />
 
       <Hero />
 <FeaturedPlants/>
     </main>
+    
   );
 }
