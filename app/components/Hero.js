@@ -1,14 +1,42 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import { FaPlay } from "react-icons/fa";
 import { IoStar } from "react-icons/io5";
+import { FaChevronRight } from "react-icons/fa";
 
 export default function Hero() {
+  const plants = [
+    {
+      image: "/images/plant1.png",
+      title: "Monstera Deliciosa",
+      desc: "An iconic tropical plant with stunning split leaves that instantly adds elegance and freshness to modern interiors.",
+      price: "$39",
+    },
+    {
+      image: "/images/plant2.png",
+      title: "Calathea Plant",
+      desc: "Beautiful decorative foliage with unique leaf patterns that brighten every room.",
+      price: "$45",
+    },
+    {
+      image: "/images/plant3.png",
+      title: "Snake Plant",
+      desc: "A low-maintenance indoor plant that purifies the air and looks amazing.",
+      price: "$29",
+    },
+  ];
+
+  const [current, setCurrent] = useState(0);
+
+  const nextPlant = () => {
+    setCurrent((prev) => (prev + 1) % plants.length);
+  };
+
   return (
- <section>
-
-
+    <section>
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-28 lg:pt-36">
-
         <div className="grid lg:grid-cols-2 gap-12 items-center">
 
           {/* Left Side */}
@@ -19,9 +47,8 @@ export default function Hero() {
               Indoor Collection
             </p>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-              Breathe Life <br />
-              Into Your Home
+            <h1 className="text-4xl md:text-6xl lg:text-6xl font-bold leading-tight">
+              Breathe Natureal
             </h1>
 
             <p className="mt-6 text-gray-200 text-lg max-w-xl leading-8">
@@ -46,43 +73,38 @@ export default function Hero() {
 
             {/* Review Card */}
 
-            <div className="mt-12 bg-white/10 backdrop-blur-md rounded-3xl p-5 max-w-md border border-white/20">
-
+            <div className="mt-19 bg-white/10 backdrop-blur-md rounded-2xl p-4 max-w-sm border border-white/20">
               <div className="flex items-center gap-4">
 
                 <Image
-                  src="/images/customer.png"
+                  src="/images/customer 1.jpg"
                   alt="Customer"
-                  width={60}
-                  height={60}
-                  className="rounded-full object-cover"
+                  width={56}
+                  height={56}
+                  className="w-14 h-14 rounded-full object-cover flex-shrink-0"
                 />
 
-                <div>
+                <div className="flex flex-col justify-center">
 
-                  <div className="flex text-yellow-400 mb-1">
-
+                  <div className="flex items-center text-yellow-400 mb-1">
                     <IoStar />
                     <IoStar />
                     <IoStar />
                     <IoStar />
                     <IoStar />
-
                   </div>
 
-                  <p className="text-sm text-gray-200">
-                    "Beautiful healthy plants with fast delivery. My living
-                    room feels fresh and elegant."
+                  <p className="text-white text-sm font-medium">
+                    Alena Patel
                   </p>
 
-                  <h4 className="mt-2 font-semibold">
-                    Sarah Williams
-                  </h4>
+                  <p className="text-gray-300 text-xs">
+                    Amazing service! Highly recommended.
+                  </p>
 
                 </div>
 
               </div>
-
             </div>
 
           </div>
@@ -91,32 +113,49 @@ export default function Hero() {
 
           <div className="relative flex justify-center">
 
-            
             {/* Floating Card */}
 
-            <div className="absolute bottom-12 right-0 lg:right-4 bg-white/15 backdrop-blur-xl border border-white/20 rounded-3xl p-6 w-72 shadow-xl">
+            <div className="absolute -bottom-50 right-0 lg:right-4 w-72 pt-20 bg-white/15 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-xl overflow-visible">
 
-              <Image
-                src="/images/plant1.png"
-                alt="Monstera Deliciosa"
-                width={140}
-                height={140}
-                className="mx-auto"
-              />
+              {/* Floating Plant Image */}
 
-              <h3 className="text-white text-xl font-bold mt-4">
-                Monstera Deliciosa
-              </h3>
+              <div className="absolute -top-10 left-1/2 -translate-x-1/2">
+                <Image
+                  src={plants[current].image}
+                  alt={plants[current].title}
+                  width={220}
+                  height={220}
+                  className="drop-shadow-2xl object-contain"
+                />
+              </div>
 
-              <p className="text-gray-200 text-sm mt-2 leading-6">
-                An iconic tropical plant with stunning split leaves that
-                instantly adds elegance and freshness to modern interiors.
+              <p className="text-gray-300 text-xs">
+                Trendy House Plant
+              </p>
+
+              <div className="flex justify-between items-center mt-2">
+
+                <h3 className="text-white text-xl font-bold">
+                  {plants[current].title}
+                </h3>
+
+                <button
+                  onClick={nextPlant}
+                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-green-600 transition flex items-center justify-center"
+                >
+                  <FaChevronRight className="text-white text-sm" />
+                </button>
+
+              </div>
+
+              <p className="text-gray-200 text-sm mt-3 leading-6">
+                {plants[current].desc}
               </p>
 
               <div className="flex justify-between items-center mt-5">
 
                 <span className="text-green-300 text-2xl font-bold">
-                  $39
+                  {plants[current].price}
                 </span>
 
                 <button className="bg-green-600 hover:bg-green-700 transition px-5 py-2 rounded-full text-white">
@@ -125,12 +164,27 @@ export default function Hero() {
 
               </div>
 
+              {/* Bottom Dots */}
+
+              <div className="flex justify-center gap-2 mt-6">
+                {plants.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrent(index)}
+                    className={`transition-all duration-300 rounded-full ${
+                      current === index
+                        ? "w-8 h-2 bg-white"
+                        : "w-2 h-2 bg-white/50"
+                    }`}
+                  />
+                ))}
+              </div>
+
             </div>
 
           </div>
 
         </div>
-
       </div>
     </section>
   );
