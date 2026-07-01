@@ -24,10 +24,10 @@ export default function Navbar() {
 
           <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/images/logo.png"
+              src="/icons/logo.png"
               alt="Planto"
-              width={40}
-              height={40}
+              width={60}
+              height={60}
             />
             <span className="text-white text-xl font-bold">
               Planto.
