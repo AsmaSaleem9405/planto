@@ -11,24 +11,23 @@ export default function FeaturedPlants() {
         </h2>
 
         {/* First Card */}
-        <div className="relative rounded-[50px] lg:rounded-[110px] border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden lg:overflow-visible mb-8">
+     <div className="relative rounded-[50px] lg:rounded-[110px] border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden lg:overflow-visible mb-8">
 
-          <div className="flex flex-col lg:grid lg:grid-cols-2 lg:h-[320px]">
+  <div className="flex flex-col lg:grid lg:grid-cols-2 lg:h-[320px]">
 
-            {/* Plant */}
-            <div className="relative flex justify-center items-center h-[250px] lg:h-auto">
-              <Image
-                src="/images/plant4.png"
-                alt="Plant"
-                width={400}
-                height={400}
-                className="w-[220px] sm:w-[260px] lg:w-auto lg:absolute lg:left-6 lg:-top-24"
-              />
-            </div>
+    {/* Plant */}
+    <div className="relative flex justify-center items-center h-[250px] lg:h-auto">
+      <Image
+        src="/images/plant4.png"
+        alt="Plant"
+        width={400}
+        height={400}
+        className="w-[220px] sm:w-[260px] lg:w-auto lg:absolute lg:left-6 lg:-top-24"
+      />
+    </div>
 
-            {/* Content */}
-            <div className="flex flex-col justify-center mt-4 text-white px-6 pb-8 lg:pr-10 lg:px-0">
-
+    {/* Content */}
+    <div className="relative z-10 flex flex-col justify-center mt-4 text-white px-6 pb-8 lg:pr-10 lg:px-0">
               <h3 className="text-[22px] font-medium">
                 Peace Lily
               </h3>
