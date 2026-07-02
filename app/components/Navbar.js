@@ -27,7 +27,8 @@ export default function Navbar() {
               src="/icons/logo.png"
               alt="Planto"
               width={50}
-              height={650}
+              height={550}
+              className="mb-4"
             />
             <span className="text-white text-xl font-bold">
               Planto.
