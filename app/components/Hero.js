@@ -63,7 +63,7 @@ export default function Hero() {
                 Explore Plants
               </button>
 <button
-  onClick={() => window.open("/videos/plant-reel.mp4", "_blank")}
+  onClick={() => window.open("https://pin.it/5UdAPGc0M", "_blank")}
   className="flex items-center gap-3 border border-white px-6 py-4 rounded-full hover:bg-white hover:text-black transition"
 >
   <FaPlay />
