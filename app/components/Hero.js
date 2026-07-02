@@ -62,11 +62,13 @@ export default function Hero() {
               <button className="bg-green-600 hover:bg-green-700 transition px-8 py-4 rounded-full font-semibold">
                 Explore Plants
               </button>
-
-              <button className="flex items-center gap-3 border border-white px-6 py-4 rounded-full hover:bg-white hover:text-black transition">
-                <FaPlay />
-                Watch Video
-              </button>
+<button
+  onClick={() => window.open("/videos/video.mp4", "_blank")}
+  className="flex items-center gap-3 border border-white px-6 py-4 rounded-full hover:bg-white hover:text-black transition"
+>
+  <FaPlay />
+  Watch Video
+</button>
             </div>
 
             {/* Review Card */}
