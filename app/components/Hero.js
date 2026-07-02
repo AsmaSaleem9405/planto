@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import Image from "next/image";
 import { FaPlay } from "react-icons/fa";
 import { IoStar } from "react-icons/io5";
@@ -8,32 +8,39 @@ import { FaChevronRight } from "react-icons/fa";
 
 export default function Hero() {
   const plants = [
+    
     {
       image: "/images/plant1.png",
-      title: "Monstera Deliciosa",
-      desc: "An iconic tropical plant with stunning split leaves that instantly adds elegance and freshness to modern interiors.",
-      price: "$39",
+      title: "Calathea Plant",
+     
     },
     {
       image: "/images/plant2.png",
-      title: "Calathea Plant",
-      desc: "Beautiful decorative foliage with unique leaf patterns that brighten every room.",
-      price: "$45",
+      title: "Monstera Deliciosa",
+     
     },
     {
       image: "/images/plant3.png",
       title: "Snake Plant",
-      desc: "A low-maintenance indoor plant that purifies the air and looks amazing.",
-      price: "$29",
+      
     },
   ];
 
-  const [current, setCurrent] = useState(0);
+   const [current, setCurrent] = useState(0);
 
-  const nextPlant = () => {
-    setCurrent((prev) => (prev + 1) % plants.length);
-  };
+const nextPlant = () => {
+  setCurrent((prev) => (prev + 1) % plants.length);
+};
 
+// Auto Slide
+useEffect(() => {
+  const interval = setInterval(() => {
+    nextPlant();
+  }, 3000); // change every 3 seconds
+
+  return () => clearInterval(interval);
+}, []);
+ 
   return (
     <section>
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-28 lg:pt-36">
@@ -111,25 +118,24 @@ export default function Hero() {
 
           {/* Right Side */}
 
-          <div className="relative flex justify-center">
+          <div className="relative flex  justify-center">
 
             {/* Floating Card */}
 
-            <div className="absolute -bottom-50 right-0 lg:right-4 w-72 pt-20 bg-white/15 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-xl overflow-visible">
-
+<div className="absolute -bottom-50 right-0 lg:right-4 w-[350px] h-[350px] pt-20 bg-white/15 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-xl overflow-visible">
               {/* Floating Plant Image */}
 
-              <div className="absolute -top-10 left-1/2 -translate-x-1/2">
+              <div className="absolute -top-20 -translate-x-1/16 ">
                 <Image
                   src={plants[current].image}
                   alt={plants[current].title}
-                  width={220}
-                  height={220}
+                  width={459}
+                  height={459}
                   className="drop-shadow-2xl object-contain"
                 />
               </div>
 
-              <p className="text-gray-300 text-xs">
+              <p className="text-gray-300 pt-25 text-xs">
                 Trendy House Plant
               </p>
 
@@ -152,15 +158,17 @@ export default function Hero() {
                 {plants[current].desc}
               </p>
 
-              <div className="flex justify-between items-center mt-5">
+              <div className="flex ">
 
                 <span className="text-green-300 text-2xl font-bold">
                   {plants[current].price}
                 </span>
 
-                <button className="bg-green-600 hover:bg-green-700 transition px-5 py-2 rounded-full text-white">
-                  Buy Now
-                </button>
+              <div className=" flex justify-left">
+  <button className="px-10 py-2.5 border border-white rounded-xl text-white text-lg font-medium bg-transparent hover:bg-green-600 hover:border-green-600 transition-all duration-300">
+    Buy Now
+  </button>
+</div>
 
               </div>
 
