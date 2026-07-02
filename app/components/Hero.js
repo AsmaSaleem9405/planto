@@ -5,6 +5,7 @@ import Image from "next/image";
 import { FaPlay } from "react-icons/fa";
 import { IoStar } from "react-icons/io5";
 import { FaChevronRight } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 export default function Hero() {
   const plants = [
@@ -41,8 +42,13 @@ export default function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-24 lg:pt-32 xl:pt-36">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-8 xl:gap-12 items-center">
           {/* Left Side */}
-
-          <div className="text-white">
+        <motion.div 
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }} // Changed from animate to whileInView
+  viewport={{ once: false, amount: 0.2 }} // Added amount so it triggers reliably
+  transition={{ duration: 0.8, ease: "easeOut" }}
+  className="text-white"
+>
             <p className="uppercase tracking-[6px] text-green-300 mb-4">
               Indoor Collection
             </p>
@@ -62,17 +68,16 @@ export default function Hero() {
               <button className="bg-green-600 hover:bg-green-700 transition px-8 py-4 rounded-full font-semibold">
                 Explore Plants
               </button>
-<button
-  onClick={() => window.open("https://youtu.be/1zu7xjYD9sg?si=NFuc5v2H0SDBp8Yx", "_blank")}
-  className="flex items-center gap-3 border border-white px-6 py-4 rounded-full hover:bg-white hover:text-black transition"
->
-  <FaPlay />
-  Watch Video
-</button>
+              <button
+                onClick={() => window.open("https://youtu.be/1zu7xjYD9sg?si=NFuc5v2H0SDBp8Yx", "_blank")}
+                className="flex items-center gap-3 border border-white px-6 py-4 rounded-full hover:bg-white hover:text-black transition"
+              >
+                <FaPlay />
+                Watch Video
+              </button>
             </div>
 
             {/* Review Card */}
-
             <div className="mt-12 lg:mt-16 bg-white/10 backdrop-blur-md rounded-2xl p-4 max-w-sm border border-white/20">
               <div className="flex items-center gap-4">
                 <Image
@@ -102,32 +107,35 @@ export default function Hero() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Side */}
-
-          <div className="relative flex justify-center lg:justify-end mt-20 lg:mt-0">
+          <motion.div 
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="relative flex justify-center lg:justify-end mt-20 lg:mt-0"
+          >
             {/* Floating Card */}
-
             <div className="relative lg:absolute lg:-bottom-24 xl:-bottom-32 right-0 lg:right-4 w-full max-w-[340px] lg:max-w-[350px] h-auto min-h-[350px] pt-20 bg-white/15 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-xl overflow-visible">
+              
               {/* Floating Plant Image */}
-
-             <div className="absolute -top-20 -translate-x-1/16 ">
-
-                <Image
-
-                  src={plants[current].image}
-
-                  alt={plants[current].title}
-
-                  width={459}
-
-                  height={459}
-
-                  className="drop-shadow-2xl object-contain"
-
-                />
-
+              <div className="absolute -top-20 -translate-x-1/16 ">
+                <motion.div
+                  key={current}
+                  initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                >
+                  <Image
+                    src={plants[current].image}
+                    alt={plants[current].title}
+                    width={459}
+                    height={459}
+                    className="drop-shadow-2xl object-contain"
+                  />
+                </motion.div>
               </div>
 
               <p className="text-gray-300 pt-24 text-xs">
@@ -151,7 +159,7 @@ export default function Hero() {
                 {plants[current].desc}
               </p>
 
-              <div className="flex flex-wrap  gap-4 mt-5">
+              <div className="flex flex-wrap gap-4 mt-5">
                 <span className="text-green-300 text-2xl font-bold">
                   {plants[current].price}
                 </span>
@@ -164,7 +172,6 @@ export default function Hero() {
               </div>
 
               {/* Bottom Dots */}
-
               <div className="flex justify-center gap-2 mt-6">
                 {plants.map((_, index) => (
                   <button
@@ -179,7 +186,7 @@ export default function Hero() {
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
