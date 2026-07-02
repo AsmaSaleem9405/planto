@@ -149,13 +149,13 @@ export default function Hero() {
                 {plants[current].desc}
               </p>
 
-              <div className="flex flex-wrap items-center justify-between gap-4 mt-5">
+              <div className="flex flex-wrap  gap-4 mt-5">
                 <span className="text-green-300 text-2xl font-bold">
                   {plants[current].price}
                 </span>
 
                 <div className="flex justify-left">
-                  <button className="px-8 py-2.5 border border-white rounded-xl text-white text-lg font-medium bg-transparent hover:bg-green-600 hover:border-green-600 transition-all duration-300">
+                  <button className="px-8 py-2.5 border -ml-4 border-white rounded-xl text-white text-lg font-medium bg-transparent hover:bg-green-600 hover:border-green-600 transition-all duration-300">
                     Buy Now
                   </button>
                 </div>
