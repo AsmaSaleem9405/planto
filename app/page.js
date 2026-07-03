@@ -1,7 +1,6 @@
 import Navbar from "@/app/components/Navbar";
 import Hero from "@/app/components/Hero";
-import TopSellingPlantsPage from "@/app/components/TopSellingPlantsPage"
-
+import TopSelling from "@/app/components/top-selling";
 export default function Home() {
   return (
     <main
@@ -13,7 +12,7 @@ export default function Home() {
 
       <Hero />
 
-<TopSellingPlantsPage />
+<TopSelling />
     </main>
     
   );
