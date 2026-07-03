@@ -139,21 +139,20 @@ export default function TopSellingPlantsPage() {
         </section>
 
         {/* Left and Right Navigation Arrows at bottom middle */}
-<footer className="w-full max-w-[120px] flex gap-15 items-center mt-8 mx-auto">
-  {/* Left Arrow Button (Links back to your main/homepage) */}
-  <Link href="/" className="p-4 rounded-full bg-[#1d271e]/80 border border-emerald-900/40 text-zinc-400 hover:text-white hover:bg-emerald-800 hover:border-emerald-600 transition-all duration-200 shadow-lg">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-    </svg>
-  </Link>
+<footer className="w-full max-w-[120px] flex gap-15 items-center mt-8 mx-auto">          {/* Left Arrow Button (Links back to your main/homepage) */}
+          <Link href="/app/components/TopSellingPlantsPage" className="p-4 rounded-full bg-[#1d271e]/80 border border-emerald-900/40 text-zinc-400 hover:text-white hover:bg-emerald-800 hover:border-emerald-600 transition-all duration-200 shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+            </svg>
+          </Link>
 
-  {/* Right Arrow Button - UPDATED HREF */}
-  <Link href="app/TopSellingPlantsPage1" className="p-4 rounded-full bg-[#1d271e]/80 border border-emerald-900/40 text-zinc-400 hover:text-white hover:bg-emerald-800 hover:border-emerald-600 transition-all duration-200 shadow-lg">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
-      <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-    </svg>
-  </Link>
-</footer>
+          {/* Right Arrow Button (Links to the 2nd page with same layout structure) */}
+          <Link href="/" className="p-4 rounded-full bg-[#1d271e]/80 border border-emerald-900/40 text-zinc-400 hover:text-white hover:bg-emerald-800 hover:border-emerald-600 transition-all duration-200 shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+            </svg>
+          </Link>
+        </footer>
       </main>
     </>
   );
