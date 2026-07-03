@@ -75,7 +75,7 @@ const plantsDataPage2 = [
     description:
       "An incredibly resilient plant with striking upright leaves, perfect for beginners.",
     price: "Rs. 499/-",
-    image: "/images/plant7.png",
+    image: "/images/snake.png",
   },
   {
     id: 8,
@@ -84,7 +84,7 @@ const plantsDataPage2 = [
     description:
       "Features waxy, deep green leaves that reflect light and brighten up dull corners.",
     price: "Rs. 650/-",
-    image: "/images/plant8.png",
+    image: "/images/zz.png",
   },
   {
     id: 9,
@@ -93,7 +93,7 @@ const plantsDataPage2 = [
     description:
       "A popular statement plant with large, heavily veined leaves growing on sleek stems.",
     price: "Rs. 599/-",
-    image: "/images/plant9.png",
+    image: "/images/Fiddle.png",
   },
   {
     id: 10,
@@ -102,7 +102,7 @@ const plantsDataPage2 = [
     description:
       "A fast-growing, cascading vine featuring heart-shaped, gold-variegated green foliage.",
     price: "Rs. 899/-",
-    image: "/images/plant10.png",
+    image: "/images/Pothos.png",
   },
   {
     id: 11,
@@ -111,7 +111,7 @@ const plantsDataPage2 = [
     description:
       "Graceful, arching narrow leaves with white stripes that easily sprouts small plantlets.",
     price: "Rs. 749/-",
-    image: "/images/plant11.png",
+    image: "/images/Spider.png",
   },
   {
     id: 12,
@@ -120,7 +120,7 @@ const plantsDataPage2 = [
     description:
       "A lush, sword-shaped frond arrangement that thrives beautifully in humid conditions.",
     price: "Rs. 949/-",
-    image: "/images/plant12.png",
+    image: "/images/Boston.png",
   },
 ];
 
@@ -241,7 +241,7 @@ export default function TopSelling2() {
           <div className="inline-block border-t-2 border-b-2 border-l-2 border-emerald-500/50 rounded-tl-xl rounded-bl-xl px-6 py-2 border-r-2 border-r-transparent relative">
             <div className="absolute top-0 right-0 h-full w-2 border-t-2 border-b-2 border-r-2 border-emerald-500/50 rounded-tr-xl rounded-br-xl -mr-2"></div>
             <h1 className="text-2xl md:text-3xl font-bold tracking-wide text-white drop-shadow">
-              Our Top Selling {currentPage === 2 && "(Page 2)"}
+              Our Top Selling {currentPage === 2 && ""}
             </h1>
           </div>
         </header>
