@@ -1,6 +1,8 @@
 import Navbar from "@/app/components/Navbar";
 import Hero from "@/app/components/Hero";
 import FeaturedPlants from "@/app/components/Featuredplant";
+import TopSellingPlantsPage from "@/app/components/TopSellingPlantsPage"
+
 export default function Home() {
   return (
     <main
@@ -15,6 +17,7 @@ export default function Home() {
 
       <Hero />
 <FeaturedPlants/>
+<TopSellingPlantsPage />
     </main>
     
   );

@@ -1,9 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import { FiShoppingBag } from "react-icons/fi";
+import { motion } from "framer-motion";
 
 export default function FeaturedPlants() {
   return (
-<section className="relative z-20 -mt-10 pb-20">
+    <section className="relative z-20 -mt-10 pb-20">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
 
         <h2 className="text-center text-white text-3xl lg:text-4xl mt-20 lg:mt-29 font-bold mb-14">
@@ -19,7 +22,14 @@ export default function FeaturedPlants() {
   <div className="flex flex-col lg:grid lg:grid-cols-2 lg:h-[320px]">
 
     {/* Plant */}
-    <div className="relative z-0 flex justify-center items-center h-[250px] lg:h-auto">
+    {/* Animated from Left */}
+    <motion.div 
+      initial={{ opacity: 0, x: -100 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: false, amount: 0.3 }}
+      transition={{ type: "spring", stiffness: 50, damping: 20 }}
+      className="relative z-0 flex justify-center items-center h-[250px] lg:h-auto"
+    >
       <Image
         src="/images/plant4.png"
         alt="Plant"
@@ -27,10 +37,17 @@ export default function FeaturedPlants() {
         height={400}
         className="w-[220px] sm:w-[260px] lg:w-auto lg:absolute lg:left-6 lg:-top-24 pointer-events-none"
       />
-    </div>
+    </motion.div>
 
     {/* Content */}
-    <div className="relative z-10 flex flex-col justify-center mt-4 text-white px-6 pb-8 lg:pr-10 lg:px-0">
+    {/* Content Wrapper Animated */}
+    <motion.div 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, amount: 0.3 }}
+      transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
+      className="relative z-10 flex flex-col justify-center mt-4 text-white px-6 pb-8 lg:pr-10 lg:px-0"
+    >
 
       <h3 className="text-[22px] font-medium">
         Peace Lily
@@ -56,7 +73,7 @@ export default function FeaturedPlants() {
 
       </div>
 
-    </div>
+    </motion.div>
 
   </div>
 
@@ -68,7 +85,14 @@ export default function FeaturedPlants() {
           <div className="flex flex-col lg:grid lg:grid-cols-2 lg:h-[320px]">
 
             {/* Plant (Mobile Top) */}
-            <div className="relative flex justify-center items-center h-[250px] lg:hidden">
+            {/* Animated from Right for mobile view consistency */}
+            <motion.div 
+              initial={{ opacity: 0, x: 100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ type: "spring", stiffness: 50, damping: 20 }}
+              className="relative flex justify-center items-center h-[250px] lg:hidden"
+            >
               <Image
                 src="/images/plant6.png"
                 alt="Plant"
@@ -76,10 +100,17 @@ export default function FeaturedPlants() {
                 height={460}
                 className="w-[240px]"
               />
-            </div>
+            </motion.div>
 
             {/* Content */}
-            <div className="flex flex-col justify-center mt-4 text-white px-6 pb-8 lg:pl-40 lg:px-0">
+            {/* Content Wrapper Animated */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
+              className="flex flex-col justify-center mt-4 text-white px-6 pb-8 lg:pl-40 lg:px-0"
+            >
 
               <h3 className="text-[22px] font-medium">
                 Zebra Haworthia
@@ -105,10 +136,17 @@ export default function FeaturedPlants() {
 
               </div>
 
-            </div>
+            </motion.div>
 
             {/* Desktop Plant */}
-            <div className="relative hidden lg:flex items-center justify-center">
+            {/* Animated from Right */}
+            <motion.div 
+              initial={{ opacity: 0, x: 100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ type: "spring", stiffness: 50, damping: 20 }}
+              className="relative hidden lg:flex items-center justify-center"
+            >
               <Image
                 src="/images/plant6.png"
                 alt="Plant"
@@ -116,7 +154,7 @@ export default function FeaturedPlants() {
                 height={460}
                 className="absolute left-6 -top-36"
               />
-            </div>
+            </motion.div>
 
           </div>
 
