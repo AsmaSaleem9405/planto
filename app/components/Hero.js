@@ -13,15 +13,15 @@ export default function Hero() {
   const plants = [
     {
       image: "/images/plant1.png",
-      title: "Calathea Plant",
+      title: "Hosta Plant",
     },
     {
       image: "/images/plant2.png",
-      title: "Monstera Deliciosa",
+      title: "Haworthia Succulent",
     },
     {
       image: "/images/plant3.png",
-      title: "Snake Plant",
+      title: "Blue Torch Cactus",
     },
   ];
 

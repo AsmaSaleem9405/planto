@@ -2,70 +2,73 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
+import { motion } from 'framer-motion'; // 1. Imported Framer Motion
+import { FiMenu, FiX, FiSearch, FiShoppingBag } from "react-icons/fi";
 
-// 1. Import your existing Navbar component so the layout stays identical
-import Navbar from '@/app/components/Navbar'; // Adjust this path to match your folder structure
+
+// Import your existing Navbar component
+import Navbar from '@/app/components/Navbar';
 
 // Plant Data Array for PAGE 1
 const plantsDataPage1 = [
   {
     id: 1,
-    name: "Aglaonema",
+    name: "Hosta Plant",
     scientificName: "Chinese Evergreen",
-    description: "Known for its beautifully variegated foliage and high tolerance for low-light conditions.",
-    price: "Rs. 359/-",
+    description: "A beautiful leafy indoor plant with soft green striped leaves that adds freshness and elegance to any space. Easy to care for and perfect for home décor.",
+    price: "Rs. 459/-",
     image: "/images/plant1.png"
   },
   {
     id: 2,
-    name: "Peace Lily",
+    name: "Haworthia Succulent",
     scientificName: "Spathiphyllum",
-    description: "A classic indoor favorite featuring lush green leaves and air-purifying qualities.",
-    price: "Rs. 359/-",
+    description: "A compact succulent with textured pointed leaves, ideal for desks and modern interiors. Requires very little maintenance and watering.",
+    price: "Rs. 659/-",
     image: "/images/plant2.png"
   },
   {
     id: 3,
     name: "Blue Torch Cactus",
     scientificName: "Pilosocereus azureus",
-    description: "A striking, vibrant blue desert cactus that thrives in bright sunshine and minimal water.",
-    price: "Rs. 359/-",
+    description: "A stylish drought-resistant cactus with a unique blue-green appearance. Perfect for minimal and modern decorative setups.",
+    price: "Rs. 959/-",
     image: "/images/plant3.png"
   },
   {
     id: 4,
     name: "Monstera Deliciosa",
     scientificName: "Swiss Cheese Plant",
-    description: "Popular for its iconic split leaves, adding an instant tropical vibe to any living room.",
-    price: "Rs. 359/-",
+    description: "A trendy tropical plant known for its large split leaves and aesthetic look. Great for indoor decoration and air purification.",
+    price: "Rs. 759/-",
     image: "/images/plant4.png"
   },
   {
     id: 5,
     name: "Bird of Paradise",
     scientificName: "Strelitzia",
-    description: "A dramatic, upright plant with large banana-like leaves that bring architectural structure.",
-    price: "Rs. 359/-",
+    description: "A bold tropical plant with long glossy leaves that creates a luxurious and vibrant atmosphere indoors.",
+    price: "Rs. 859/-",
     image: "/images/plant5.png"
   },
   {
     id: 6,
     name: "Zebra Haworthia",
     scientificName: "Hawardiopsis attenuata",
-    description: "A charming, low-maintenance succulent distinctively marked with white pearly stripes.",
-    price: "Rs. 359/-",
+    description: "A small striped succulent with an attractive modern look. Beginner-friendly and ideal for compact indoor spaces.",
+    price: "Rs. 859/-",
     image: "/images/plant6.png"
   }
 ];
 
-// Plant Data Array for PAGE 2 (Change these later to whatever you like!)
+// Plant Data Array for PAGE 2
 const plantsDataPage2 = [
   {
     id: 7,
     name: "Snake Plant",
     scientificName: "Sansevieria trifasciata",
     description: "An incredibly resilient plant with striking upright leaves, perfect for beginners.",
-    price: "Rs. 399/-",
+    price: "Rs. 499/-",
     image: "/images/plant7.png" 
   },
   {
@@ -73,7 +76,7 @@ const plantsDataPage2 = [
     name: "ZZ Plant",
     scientificName: "Zamioculcas zamiifolia",
     description: "Features waxy, deep green leaves that reflect light and brighten up dull corners.",
-    price: "Rs. 450/-",
+    price: "Rs. 650/-",
     image: "/images/plant8.png"
   },
   {
@@ -89,7 +92,7 @@ const plantsDataPage2 = [
     name: "Pothos",
     scientificName: "Epipremnum aureum",
     description: "A fast-growing, cascading vine featuring heart-shaped, gold-variegated green foliage.",
-    price: "Rs. 299/-",
+    price: "Rs. 899/-",
     image: "/images/plant10.png"
   },
   {
@@ -97,7 +100,7 @@ const plantsDataPage2 = [
     name: "Spider Plant",
     scientificName: "Chlorophytum comosum",
     description: "Graceful, arching narrow leaves with white stripes that easily sprouts small plantlets.",
-    price: "Rs. 249/-",
+    price: "Rs. 749/-",
     image: "/images/plant11.png"
   },
   {
@@ -105,15 +108,41 @@ const plantsDataPage2 = [
     name: "Boston Fern",
     scientificName: "Nephrolepis exaltata",
     description: "A lush, sword-shaped frond arrangement that thrives beautifully in humid conditions.",
-    price: "Rs. 349/-",
+    price: "Rs. 949/-",
     image: "/images/plant12.png"
   }
 ];
 
-// Reusable Plant Card Component
+// Reusable Plant Card Component with Scroll Animations
 const PlantCard = ({ plant }) => {
+  // Animation Variants for Container Card
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: 0.6, 
+        ease: "easeOut",
+        staggerChildren: 0.1 // Staggers the animation of the text elements inside
+      }
+    }
+  };
+
+  // Animation Variants for Text Elements
+  const textVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+  };
+
   return (
-    <article className="relative bg-gradient-to-b from-[#162218] to-[#0e1610] border-2 border-emerald-500/30 backdrop-blur-md rounded-[2.5rem] p-6 pt-0 flex flex-col justify-between group shadow-[0_0_30px_rgba(0,0,0,0.4)] transition-all duration-300 hover:scale-[1.03] hover:border-emerald-400 hover:shadow-[0_0_40px_rgba(16,185,129,0.15)]">
+    <motion.article 
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: false, amount: 0.2 }} // once: false ensures it triggers every time you scroll up/down
+      className="relative bg-gradient-to-b from-[#162218] to-[#0e1610] border-2 border-emerald-500/30 backdrop-blur-md rounded-[2.5rem] p-6 pt-0 flex flex-col justify-between group shadow-[0_0_30px_rgba(0,0,0,0.4)] transition-all duration-300 hover:scale-[1.03] hover:border-emerald-400 hover:shadow-[0_0_40px_rgba(16,185,129,0.15)]"
+    >
       
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none group-hover:bg-emerald-400/20 transition-all duration-300"></div>
 
@@ -121,42 +150,53 @@ const PlantCard = ({ plant }) => {
         <Image
           src={plant.image}
           alt={`Healthy indoor ${plant.name}`}
-          width={220}
-          height={220}
+          width={620}
+          height={620}
           className="object-contain max-h-[110%] transition-transform duration-300 group-hover:scale-105"
           priority={true} 
         />
       </div>
 
       <div className="flex flex-col flex-grow text-left px-2 relative z-10">
-        <h3 className="text-xl font-semibold text-zinc-100 tracking-wide group-hover:text-emerald-300 transition-colors duration-200">{plant.name}</h3>
-        <p className="text-xs text-emerald-400/80 font-medium italic mb-2">{plant.scientificName}</p>
-        <p className="text-sm text-zinc-400 line-clamp-2 mb-6 leading-relaxed">
+        <motion.h3 variants={textVariants} className="text-xl font-semibold text-zinc-100 tracking-wide group-hover:text-emerald-300 transition-colors duration-200">
+          {plant.name}
+        </motion.h3>
+        
+        <motion.p variants={textVariants} className="text-xs text-emerald-400/80 font-medium italic mb-2">
+          {plant.scientificName}
+        </motion.p>
+        
+        <motion.p variants={textVariants} className="text-sm text-zinc-400 line-clamp-4 mb-6 leading-relaxed">
           {plant.description}
-        </p>
+        </motion.p>
       </div>
 
-      <div className="flex justify-between items-center px-2 pb-2 mt-auto relative z-10">
+      <motion.div variants={textVariants} className="flex justify-between items-center px-2 pb-2 mt-auto relative z-10">
         <span className="text-lg font-bold text-emerald-400 tracking-wide">{plant.price}</span>
         <button 
           aria-label={`Add ${plant.name} to cart`}
           className="p-2.5 rounded-xl border border-emerald-500/30 bg-[#121c14] text-zinc-300 hover:bg-emerald-500 hover:text-neutral-900 hover:border-emerald-400 transition-all duration-200 shadow-md transform active:scale-95"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-          </svg>
+           <div className="flex gap-6">
+          
+                     
+          
+                      <FiShoppingBag
+                        size={24}
+                        className="text-white"
+                      />
+          
+                    </div>
+          
         </button>
-      </div>
-    </article>
+      </motion.div>
+    </motion.article>
   );
 };
 
 // Main Page Component
 export default function TopSelling2() {
-  // Use state to track the active layout view (Page 1 or Page 2)
   const [currentPage, setCurrentPage] = useState(1);
-
-  // Pick the data array dynamically based on the state
   const currentPlants = currentPage === 1 ? plantsDataPage1 : plantsDataPage2;
 
   return (
@@ -170,7 +210,7 @@ export default function TopSelling2() {
 
       <main 
         className="min-h-screen w-full bg-[#111612] bg-cover bg-center flex flex-col justify-between items-center pt-24 pb-16 px-4 md:px-8 lg:px-16" 
-        style={{ backgroundImage: "url('/images/page-bg.png')" }}
+        style={{ backgroundImage: "url('/images/bg-1.png')" }}
       >
         
         <header className="mb-24 mt-8 text-center">
@@ -182,7 +222,7 @@ export default function TopSelling2() {
           </div>
         </header>
 
-        {/* 3x2 Grid - Automatically maps either page 1 or page 2 data */}
+        {/* 3x2 Grid */}
         <section className="w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-24 px-4">
           {currentPlants.map((plant) => (
             <PlantCard key={plant.id} plant={plant} />
@@ -191,8 +231,6 @@ export default function TopSelling2() {
 
         {/* Interactive In-Page Footer Navigation */}
         <footer className="w-full max-w-[160px] flex gap-4 justify-between items-center mt-12 mx-auto">
-          
-          {/* Back Arrow Button (Goes to Page 1) */}
           <button
             onClick={() => setCurrentPage(1)}
             disabled={currentPage === 1}
@@ -208,7 +246,6 @@ export default function TopSelling2() {
             </svg>
           </button>
 
-          {/* Forward Arrow Button (Goes to Page 2) */}
           <button
             onClick={() => setCurrentPage(2)}
             disabled={currentPage === 2}
@@ -223,7 +260,6 @@ export default function TopSelling2() {
               <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
             </svg>
           </button>
-          
         </footer>
       </main>
     </>
