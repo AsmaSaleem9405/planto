@@ -58,13 +58,16 @@ const plantsData = [
   }
 ];
 
-// Reusable Plant Card Component
+// Reusable Plant Card Component - Enhanced with rich gallery green theme
 const PlantCard = ({ plant }) => {
   return (
-    <article className="relative bg-[#1d271e]/60 border border-emerald-900/40 backdrop-blur-md rounded-[2.5rem] p-6 pt-0 flex flex-col justify-between group shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-emerald-700/60">
+    <article className="relative bg-gradient-to-b from-[#162218] to-[#0e1610] border-2 border-emerald-500/30 backdrop-blur-md rounded-[2.5rem] p-6 pt-0 flex flex-col justify-between group shadow-[0_0_30px_rgba(0,0,0,0.4)] transition-all duration-300 hover:scale-[1.03] hover:border-emerald-400 hover:shadow-[0_0_40px_rgba(16,185,129,0.15)]">
       
+      {/* Decorative background glow for the gallery presentation style */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none group-hover:bg-emerald-400/20 transition-all duration-300"></div>
+
       {/* Plant Image - Set up to match the visual pop-out style of image_e8ecac.png */}
-      <div className="relative w-full h-56 -mt-12 mb-4 flex justify-center items-end drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)]">
+      <div className="relative w-full h-56 -mt-12 mb-4 flex justify-center items-end drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)] z-10">
         <Image
           src={plant.image}
           alt={`Healthy indoor ${plant.name}`}
@@ -76,22 +79,22 @@ const PlantCard = ({ plant }) => {
       </div>
 
       {/* Content */}
-      <div className="flex flex-col flex-grow text-left px-2">
-        <h3 className="text-xl font-semibold text-zinc-100 tracking-wide">{plant.name}</h3>
-        <p className="text-xs text-zinc-400 font-medium italic mb-2">{plant.scientificName}</p>
+      <div className="flex flex-col flex-grow text-left px-2 relative z-10">
+        <h3 className="text-xl font-semibold text-zinc-100 tracking-wide group-hover:text-emerald-300 transition-colors duration-200">{plant.name}</h3>
+        <p className="text-xs text-emerald-400/80 font-medium italic mb-2">{plant.scientificName}</p>
         <p className="text-sm text-zinc-400 line-clamp-2 mb-6 leading-relaxed">
           {plant.description}
         </p>
       </div>
 
       {/* Price & Action */}
-      <div className="flex justify-between items-center px-2 pb-2 mt-auto">
-        <span className="text-lg font-bold text-zinc-100">{plant.price}</span>
+      <div className="flex justify-between items-center px-2 pb-2 mt-auto relative z-10">
+        <span className="text-lg font-bold text-emerald-400 tracking-wide">{plant.price}</span>
         <button 
           aria-label={`Add ${plant.name} to cart`}
-          className="p-2.5 rounded-xl border border-zinc-500/30 bg-[#151d16] text-zinc-300 hover:bg-emerald-800 hover:text-white hover:border-emerald-600 transition-colors duration-200 shadow-md"
+          className="p-2.5 rounded-xl border border-emerald-500/30 bg-[#121c14] text-zinc-300 hover:bg-emerald-500 hover:text-neutral-900 hover:border-emerald-400 transition-all duration-200 shadow-md transform active:scale-95"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor" className="w-5 h-5">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
           </svg>
         </button>
@@ -136,8 +139,7 @@ export default function TopSellingPlantsPage() {
         </section>
 
         {/* Left and Right Navigation Arrows at bottom middle */}
-        <footer className="w-full max-w-xs flex justify-between items-center mt-28 mx-auto">
-          {/* Left Arrow Button (Links back to your main/homepage) */}
+<footer className="w-full max-w-[120px] flex gap-15 items-center mt-8 mx-auto">          {/* Left Arrow Button (Links back to your main/homepage) */}
           <Link href="/" className="p-4 rounded-full bg-[#1d271e]/80 border border-emerald-900/40 text-zinc-400 hover:text-white hover:bg-emerald-800 hover:border-emerald-600 transition-all duration-200 shadow-lg">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
