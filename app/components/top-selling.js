@@ -93,7 +93,7 @@ const plantsDataPage2 = [
     description:
       "A popular statement plant with large, heavily veined leaves growing on sleek stems.",
     price: "Rs. 599/-",
-    image: "/images/Fiddle.png",
+    image: "/images/fiddle.png",
   },
   {
     id: 10,
