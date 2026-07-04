@@ -17,6 +17,9 @@ const Hero = dynamic(() => import("@/app/components/Hero"), {
 const BestPlants = dynamic(() => import("@/app/components/BestPlants"), {
   loading: () => <p>Loading...</p>,
 });
+const Footer = dynamic(() => import("@/app/components/Footer"), {
+  loading: () => <p>Loading...</p>,
+});
 
 
 export default function Home() {
@@ -27,6 +30,7 @@ export default function Home() {
       <TopSelling />
       <Reviews />
         <BestPlants />
+        <Footer />
     </main>
   );
 }
