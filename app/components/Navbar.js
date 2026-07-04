@@ -66,7 +66,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-5 lg:px-10">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2">
+            <Link href="#home" className="flex items-center gap-2">
               <Image
                 src="/icons/logo.webp"
                 alt="Planto"
@@ -79,7 +79,7 @@ export default function Navbar() {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-10">
-              <Link href="/" className="text-gray-300 hover:text-green-400 transition duration-300">
+              <Link href="#home" className="text-gray-300 hover:text-green-400 transition duration-300">
                 Home
               </Link>
 

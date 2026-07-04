@@ -21,12 +21,23 @@
 html {
   scroll-behavior: smooth;
 }
-
+html,
+img {
+  max-width: 100%;
+  height: auto;
+}
 body {
   overflow-x: hidden;
 }
+.container {
+  width: 100%;
+}
 .section {
   width: 100%;
+}
+.box {
+  width: 100%;
+  max-width: 1200px;
 }
 body {
   background: var(--background);
