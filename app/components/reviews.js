@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -9,7 +9,7 @@ const reviews = [
   {
     id: 1,
     name: "Maxn Raval",
-    image: "/images/men1.jpg", // Replace with your gallery image path
+    image: "/images/men1.jpg",
     rating: 5,
     text: "Breathe Natural completely transformed my living room! The Monstera arrived in perfect condition and the care guides made it effortless to keep alive.",
   },
@@ -52,8 +52,9 @@ const reviews = [
 
 export default function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0); // -1 for prev, 1 for next
 
-  // Auto rotate every 6 seconds
+  // Auto rotate every 6 seconds, resetting if index changes via manual click
   useEffect(() => {
     const timer = setInterval(() => {
       handleNext();
@@ -62,10 +63,12 @@ export default function Testimonials() {
   }, [currentIndex]);
 
   const handleNext = () => {
+    setDirection(1);
     setCurrentIndex((prevIndex) => (prevIndex + 1) % reviews.length);
   };
 
   const handlePrev = () => {
+    setDirection(-1);
     setCurrentIndex((prevIndex) => (prevIndex - 1 + reviews.length) % reviews.length);
   };
 
@@ -80,11 +83,21 @@ export default function Testimonials() {
 
   const { left, center, right } = getVisibleIndices();
 
+  // Scroll Variants for Section Entrance
+  const scrollFadeUpVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.8, ease: [0.25, 1, 0.5, 1] }
+    }
+  };
+
   return (
     <section 
-  className="relative min-h-[80px] bg-[#0c160c] bg-[url('/images/bg-1.png')] bg-cover bg-center bg-no-repeat py-20 px-4 overflow-hidden flex flex-col items-center justify-center select-none"
-  aria-label="Customer Reviews"
->
+      className="relative min-h-[80px] bg-[#0c160c] bg-[url('/images/bg-1.png')] bg-cover bg-center bg-no-repeat py-20 px-4 overflow-hidden flex flex-col items-center justify-center select-none"
+      aria-label="Customer Reviews"
+    >
       {/* Structured SEO Schema Data */}
       <script
         type="application/ld+json"
@@ -102,8 +115,14 @@ export default function Testimonials() {
         }}
       />
 
-      {/* Custom Framed Header */}
-      <div className="relative mb-24 z-10">
+      {/* Custom Framed Header - Animates on Scroll Up/Down */}
+      <motion.div 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.3 }}
+        variants={scrollFadeUpVariants}
+        className="relative mb-24 z-10"
+      >
         <div className="absolute -inset-x-4 -inset-y-2 border-t border-b border-l border-green-400/30 rounded-l-xl pointer-events-none"></div>
         <div className="absolute -inset-x-4 -inset-y-2 border-t border-b border-r border-green-400/30 rounded-r-xl pointer-events-none"></div>
         
@@ -114,10 +133,16 @@ export default function Testimonials() {
         <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-wide px-6 py-1 text-center font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
           Customer Review
         </h2>
-      </div>
+      </motion.div>
 
-      {/* Carousel Container */}
-      <div className="relative w-full max-w-6xl h-[450px] md:h-[380px] flex items-center justify-center z-10">
+      {/* Carousel Container - Animates on Scroll Up/Down */}
+      <motion.div 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.2 }}
+        variants={scrollFadeUpVariants}
+        className="relative w-full max-w-6xl h-[450px] md:h-[380px] flex items-center justify-center z-10"
+      >
         
         {/* Left Hidden/Blur Card (Mobile Responsive: hidden on smaller viewports) */}
         <div 
@@ -127,14 +152,15 @@ export default function Testimonials() {
           <CardContent review={reviews[left]} />
         </div>
 
-        {/* Center Active Focused Card */}
-        <AnimatePresence mode="wait">
+        {/* Center Active Focused Card with Smooth Custom Transitions */}
+        <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={center}
-            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+            custom={direction}
+            initial={{ opacity: 0, scale: 0.92, y: direction > 0 ? 25 : -25 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: -10 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
+            exit={{ opacity: 0, scale: 0.92, y: direction > 0 ? -25 : 25 }}
+            transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
             className="relative w-full max-w-[360px] h-[330px] flex flex-col justify-between p-8 bg-[#182318] shadow-[0_20px_50px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.1)] rounded-[2.8rem_1.8rem_2.8rem_1.8rem] border border-white/10 z-20"
           >
             <CardContent review={reviews[center]} />
@@ -149,10 +175,16 @@ export default function Testimonials() {
           <CardContent review={reviews[right]} />
         </div>
 
-      </div>
+      </motion.div>
 
-      {/* Control Actions / Navigation Dots */}
-      <div className="flex items-center gap-6 mt-8 z-10">
+      {/* Control Actions / Navigation Dots - Animates on Scroll Up/Down */}
+      <motion.div 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.5 }}
+        variants={scrollFadeUpVariants}
+        className="flex items-center gap-6 mt-8 z-10"
+      >
         <button 
           onClick={handlePrev}
           className="p-2 rounded-full border border-white/10 text-white/60 hover:text-white hover:bg-white/5 transition-colors"
@@ -165,7 +197,10 @@ export default function Testimonials() {
           {reviews.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentIndex(index)}
+              onClick={() => {
+                setDirection(index > currentIndex ? 1 : -1);
+                setCurrentIndex(index);
+              }}
               className={`h-2 rounded-full transition-all duration-300 ${
                 index === currentIndex ? "w-6 bg-green-400" : "w-2 bg-white/20"
               }`}
@@ -181,7 +216,7 @@ export default function Testimonials() {
         >
           <ChevronRight size={20} />
         </button>
-      </div>
+      </motion.div>
     </section>
   );
 }
