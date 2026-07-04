@@ -1,6 +1,5 @@
 import dynamic from "next/dynamic";
-import Navbar from "@/app/components/Navbar";
-import Hero from "@/app/components/Hero";
+
 
 const TopSelling = dynamic(() => import("@/app/components/top-selling"), {
   loading: () => <p>Loading...</p>,
@@ -9,6 +8,16 @@ const TopSelling = dynamic(() => import("@/app/components/top-selling"), {
 const Reviews = dynamic(() => import("@/app/components/reviews"), {
   loading: () => <p>Loading...</p>,
 });
+const Navbar = dynamic(() => import("@/app/components/Navbar"), {
+  loading: () => <p>Loading...</p>,
+});
+const Hero = dynamic(() => import("@/app/components/Hero"), {
+  loading: () => <p>Loading...</p>,
+});
+const BestPlants = dynamic(() => import("@/app/components/BestPlants"), {
+  loading: () => <p>Loading...</p>,
+});
+
 
 export default function Home() {
   return (
@@ -17,6 +26,7 @@ export default function Home() {
       <Hero />
       <TopSelling />
       <Reviews />
+        <BestPlants />
     </main>
   );
 }
