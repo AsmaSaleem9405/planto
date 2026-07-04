@@ -23,6 +23,9 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
+    "imagemin-cli": "^8.0.0",
+    "imagemin-webp": "^8.0.0",
+    "sharp-cli": "^5.2.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

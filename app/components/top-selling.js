@@ -17,7 +17,7 @@ const plantsDataPage1 = [
     description:
       "A beautiful leafy indoor plant with soft green striped leaves that adds freshness and elegance to any space. Easy to care for and perfect for home décor.",
     price: "Rs. 459/-",
-    image: "/images/plant1.png",
+    image: "/images/plant1.webp",
   },
   {
     id: 2,
@@ -26,7 +26,7 @@ const plantsDataPage1 = [
     description:
       "A compact succulent with textured pointed leaves, ideal for desks and modern interiors. Requires very little maintenance and watering.",
     price: "Rs. 659/-",
-    image: "/images/plant2.png",
+    image: "/images/plant2.webp",
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ const plantsDataPage1 = [
     description:
       "A stylish drought-resistant cactus with a unique blue-green appearance. Perfect for minimal and modern decorative setups.",
     price: "Rs. 959/-",
-    image: "/images/plant3.png",
+    image: "/images/plant3.webp",
   },
   {
     id: 4,
@@ -44,7 +44,7 @@ const plantsDataPage1 = [
     description:
       "A trendy tropical plant known for its large split leaves and aesthetic look. Great for indoor decoration and air purification.",
     price: "Rs. 759/-",
-    image: "/images/plant4.png",
+    image: "/images/plant4.webp",
   },
   {
     id: 5,
@@ -53,7 +53,7 @@ const plantsDataPage1 = [
     description:
       "A bold tropical plant with long glossy leaves that creates a luxurious and vibrant atmosphere indoors.",
     price: "Rs. 859/-",
-    image: "/images/plant5.png",
+    image: "/images/plant5.webp",
   },
   {
     id: 6,
@@ -62,7 +62,7 @@ const plantsDataPage1 = [
     description:
       "A small striped succulent with an attractive modern look. Beginner-friendly and ideal for compact indoor spaces.",
     price: "Rs. 859/-",
-    image: "/images/plant6.png",
+    image: "/images/plant6.webp",
   },
 ];
 
@@ -75,7 +75,7 @@ const plantsDataPage2 = [
     description:
       "An incredibly resilient plant with striking upright leaves, perfect for beginners.",
     price: "Rs. 499/-",
-    image: "/images/snake.png",
+    image: "/images/snake.webp",
   },
   {
     id: 8,
@@ -84,7 +84,7 @@ const plantsDataPage2 = [
     description:
       "Features waxy, deep green leaves that reflect light and brighten up dull corners.",
     price: "Rs. 650/-",
-    image: "/images/zz.png",
+    image: "/images/zz.webp",
   },
   {
     id: 9,
@@ -93,7 +93,7 @@ const plantsDataPage2 = [
     description:
       "A popular statement plant with large, heavily veined leaves growing on sleek stems.",
     price: "Rs. 599/-",
-    image: "/images/fiddle.png",
+    image: "/images/fiddle.webp",
   },
   {
     id: 10,
@@ -102,7 +102,7 @@ const plantsDataPage2 = [
     description:
       "A fast-growing, cascading vine featuring heart-shaped, gold-variegated green foliage.",
     price: "Rs. 899/-",
-    image: "/images/Pothos.png",
+    image: "/images/Pothos.webp",
   },
   {
     id: 11,
@@ -111,7 +111,7 @@ const plantsDataPage2 = [
     description:
       "Graceful, arching narrow leaves with white stripes that easily sprouts small plantlets.",
     price: "Rs. 749/-",
-    image: "/images/Spider.png",
+    image: "/images/Spider.webp",
   },
   {
     id: 12,
@@ -120,31 +120,30 @@ const plantsDataPage2 = [
     description:
       "A lush, sword-shaped frond arrangement that thrives beautifully in humid conditions.",
     price: "Rs. 949/-",
-    image: "/images/Boston.png",
+    image: "/images/Boston.webp",
   },
 ];
 
 // Reusable Plant Card Component with Fixed Sizes
-const PlantCard = ({ plant }) => {
+const PlantCard = ({ plant, isPriority }) => {
   const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.5,
         ease: "easeOut",
-        staggerChildren: 0.1,
       },
     },
   };
 
   const textVariants = {
-    hidden: { opacity: 0, y: 15 },
+    hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.4, ease: "easeOut" },
+      transition: { duration: 0.3, ease: "easeOut" },
     },
   };
 
@@ -153,8 +152,7 @@ const PlantCard = ({ plant }) => {
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: false, amount: 0.2 }}
-      // FIXED SIZE BOUNDARY: Added explicitly fixed height (h-[480px])
+      viewport={{ once: true, amount: 0.1 }} // Performance Fix: static trigger optimization
       className="relative h-[430px] w-full bg-gradient-to-b from-[#162218] to-[#0e1610] border-2 border-emerald-500/30 backdrop-blur-md rounded-[2.5rem] p-6 pt-0 flex flex-col justify-between group shadow-[0_0_30px_rgba(0,0,0,0.4)] transition-all duration-300 hover:scale-[1.03] hover:border-emerald-400 hover:shadow-[0_0_40px_rgba(16,185,129,0.15)]"
     >
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none group-hover:bg-emerald-400/20 transition-all duration-300"></div>
@@ -164,10 +162,11 @@ const PlantCard = ({ plant }) => {
         <Image
           src={plant.image}
           alt={`Healthy indoor ${plant.name}`}
-          width={620}
-          height={620}
+          width={320} // Performance Fix: Resized container width target to practical dimensions
+          height={320}
           className="object-contain max-h-[110%] transition-transform duration-300 group-hover:scale-105"
-          priority={true}
+          priority={isPriority} // Performance Fix: Prioritizes above-fold elements cleanly
+          loading={isPriority ? undefined : "lazy"}
         />
       </div>
 
@@ -233,11 +232,20 @@ export default function TopSelling2() {
 
       <Navbar />
 
-      <main
-        className="min-h-screen w-full bg-[#111612] bg-cover bg-center flex flex-col justify-between items-center pt-24 pb-16 px-4 md:px-8 lg:px-16"
-        style={{ backgroundImage: "url('/images/bg-1.png')" }}
-      >
-        <header className="mb-24 mt-8 text-center">
+      <main className="relative min-h-screen w-full flex flex-col justify-between items-center pt-24 pb-16 px-4 md:px-8 lg:px-16 overflow-hidden">
+        {/* Performance Fix: Next.js background optimization instead of unoptimized CSS asset loading */}
+        <div className="absolute inset-0 z-0">
+          <Image 
+            src="/images/bg-1.webp"
+            alt="Page Background"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center pointer-events-none"
+          />
+        </div>
+
+        <header className="relative z-10 mb-24 mt-8 text-center">
           <div className="inline-block border-t-2 border-b-2 border-l-2 border-emerald-500/50 rounded-tl-xl rounded-bl-xl px-6 py-2 border-r-2 border-r-transparent relative">
             <div className="absolute top-0 right-0 h-full w-2 border-t-2 border-b-2 border-r-2 border-emerald-500/50 rounded-tr-xl rounded-br-xl -mr-2"></div>
             <h1 className="text-2xl md:text-3xl font-bold tracking-wide text-white drop-shadow">
@@ -247,14 +255,18 @@ export default function TopSelling2() {
         </header>
 
         {/* 3x2 Grid layout configuration */}
-        <section className="w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-24 px-4">
-          {currentPlants.map((plant) => (
-            <PlantCard key={plant.id} plant={plant} />
+        <section className="relative z-10 w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-24 px-4">
+          {currentPlants.map((plant, index) => (
+            <PlantCard 
+              key={plant.id} 
+              plant={plant} 
+              isPriority={index < 2} // Performance Fix: Only pre-renders the top 2 items
+            />
           ))}
         </section>
 
         {/* Interactive In-Page Footer Pagination Control bars */}
-        <footer className="w-full max-w-[160px] flex gap-4 justify-between items-center mt-12 mx-auto">
+        <footer className="relative z-10 w-full max-w-[160px] flex gap-4 justify-between items-center mt-12 mx-auto">
           <button
             onClick={() => setCurrentPage(1)}
             disabled={currentPage === 1}

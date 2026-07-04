@@ -24,7 +24,7 @@ export default function Navbar() {
 
           <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/icons/logo.png"
+              src="/icons/logo.webp"
               alt="Planto"
               width={50}
               height={550}

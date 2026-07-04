@@ -11,15 +11,15 @@ import { motion } from "framer-motion";
 export default function Hero() {
   const plants = [
     {
-      image: "/images/plant1.png",
+      image: "/images/plant1.webp",
       title: "Hosta Plant",
     },
     {
-      image: "/images/plant2.png",
+      image: "/images/plant2.webp",
       title: "Haworthia Succulent",
     },
     {
-      image: "/images/plant3.png",
+      image: "/images/plant3.webp",
       title: "Blue Torch Cactus",
     },
   ];
@@ -39,20 +39,27 @@ export default function Hero() {
   }, []);
 
   return (
-    <section
-      className="relative min-h-screen bg-cover bg-center bg-no-repeat"
-      style={{
-        backgroundImage: "url('/images/bg-plant.png')",
-      }}
-    >
+    <section className="relative min-h-screen">
+      {/* Performance Fix: Optimized Next.js Background Image with high priority */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/bg-plant.webp"
+          alt="Background"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center pointer-events-none"
+        />
+      </div>
+
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-24 lg:pt-32 xl:pt-36">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-8 xl:gap-12 items-center">
           {/* Left Side */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }} // Changed from animate to whileInView
-            viewport={{ once: false, amount: 0.2 }} // Added amount so it triggers reliably
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }} // Performance Fix: once: true avoids continuous recalculation
+            transition={{ duration: 0.6, ease: "easeOut" }} // Performance Fix: Hardware-friendly duration
             className="text-white"
           >
             <p className="uppercase tracking-[6px] text-green-300 mb-4">
@@ -92,10 +99,11 @@ export default function Hero() {
             <div className="mt-12 lg:mt-16 bg-white/10 backdrop-blur-md rounded-2xl p-4 max-w-sm border border-white/20">
               <div className="flex items-center gap-4">
                 <Image
-                  src="/images/customer 1.jpg"
+                  src="/images/customer 1.webp"
                   alt="Customer"
                   width={56}
                   height={56}
+                  priority // Performance Fix: Above the fold image loaded instantly
                   className="w-14 h-14 rounded-full object-cover flex-shrink-0"
                 />
 
@@ -122,8 +130,8 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="relative flex justify-center lg:justify-end mt-20 lg:mt-0"
           >
             {/* Floating Card */}
@@ -134,13 +142,14 @@ export default function Hero() {
                   key={current}
                   initial={{ opacity: 0, scale: 0.9, y: 10 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
                 >
                   <Image
                     src={plants[current].image}
                     alt={plants[current].title}
                     width={459}
                     height={459}
+                    priority // Performance Fix: Pre-renders the visible slide image
                     className="drop-shadow-2xl object-contain"
                   />
                 </motion.div>
@@ -203,36 +212,32 @@ export default function Hero() {
           </h2>
 
           {/* First Card */}
-
-          {/* First Card */}
-
           <div className="relative rounded-[50px] lg:rounded-[110px] border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden lg:overflow-visible mb-8">
             <div className="flex flex-col lg:grid lg:grid-cols-2 lg:h-[320px]">
               {/* Plant */}
-              {/* Animated from Left */}
               <motion.div
                 initial={{ opacity: 0, x: -100 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false, amount: 0.3 }}
-                transition={{ type: "spring", stiffness: 50, damping: 20 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ type: "spring", stiffness: 60, damping: 25 }}
                 className="relative z-0 flex justify-center items-center h-[250px] lg:h-auto"
               >
                 <Image
-                  src="/images/plant4.png"
+                  src="/images/plant4.webp"
                   alt="Plant"
                   width={400}
                   height={400}
+                  loading="lazy" // Performance Fix: Loads only when scrolled to
                   className="w-[220px] sm:w-[260px] lg:w-auto lg:absolute lg:left-6 lg:-top-24 pointer-events-none"
                 />
               </motion.div>
 
               {/* Content */}
-              {/* Content Wrapper Animated */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.3 }}
-                transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ delay: 0.1, duration: 0.5, ease: "easeOut" }}
                 className="relative z-10 flex flex-col justify-center mt-4 text-white px-6 pb-8 lg:pr-10 lg:px-0"
               >
                 <h3 className="text-[22px] font-medium">Peace Lily</h3>
@@ -264,30 +269,29 @@ export default function Hero() {
           <div className="relative rounded-[50px] lg:rounded-[110px] border mt-12 lg:mt-18 border-white/10 bg-white/5 backdrop-blur-md overflow-hidden lg:overflow-visible">
             <div className="flex flex-col lg:grid lg:grid-cols-2 lg:h-[320px]">
               {/* Plant (Mobile Top) */}
-              {/* Animated from Right for mobile view consistency */}
               <motion.div
                 initial={{ opacity: 0, x: 100 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false, amount: 0.3 }}
-                transition={{ type: "spring", stiffness: 50, damping: 20 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ type: "spring", stiffness: 60, damping: 25 }}
                 className="relative flex justify-center items-center h-[250px] lg:hidden"
               >
                 <Image
-                  src="/images/plant6.png"
+                  src="/images/plant6.webp"
                   alt="Plant"
                   width={600}
                   height={460}
+                  loading="lazy"
                   className="w-[240px]"
                 />
               </motion.div>
 
               {/* Content */}
-              {/* Content Wrapper Animated */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.3 }}
-                transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ delay: 0.1, duration: 0.5, ease: "easeOut" }}
                 className="flex flex-col justify-center mt-4 text-white px-6 pb-8 lg:pl-40 lg:px-0"
               >
                 <h3 className="text-[22px] font-medium">Zebra Haworthia</h3>
@@ -314,19 +318,19 @@ export default function Hero() {
               </motion.div>
 
               {/* Desktop Plant */}
-              {/* Animated from Right */}
               <motion.div
                 initial={{ opacity: 0, x: 100 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false, amount: 0.3 }}
-                transition={{ type: "spring", stiffness: 50, damping: 20 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ type: "spring", stiffness: 60, damping: 25 }}
                 className="relative hidden lg:flex items-center justify-center"
               >
                 <Image
-                  src="/images/plant6.png"
+                  src="/images/plant6.webp"
                   alt="Plant"
                   width={600}
                   height={460}
+                  loading="lazy"
                   className="absolute left-6 -top-36"
                 />
               </motion.div>
