@@ -30,13 +30,10 @@ export default function Hero() {
     setCurrent((prev) => (prev + 1) % plants.length);
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextPlant();
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
+ useEffect(() => {
+  const id = setInterval(nextPlant, 5000);
+  return () => clearInterval(id);
+}, [nextPlant]);
 
   return (
     <section className="relative min-h-screen">

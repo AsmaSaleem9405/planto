@@ -1,21 +1,22 @@
+import dynamic from "next/dynamic";
 import Navbar from "@/app/components/Navbar";
 import Hero from "@/app/components/Hero";
-import TopSelling from "@/app/components/top-selling";
-import Reviews from "@/app/components/reviews";
+
+const TopSelling = dynamic(() => import("@/app/components/top-selling"), {
+  loading: () => <p>Loading...</p>,
+});
+
+const Reviews = dynamic(() => import("@/app/components/reviews"), {
+  loading: () => <p>Loading...</p>,
+});
+
 export default function Home() {
   return (
-    <main
-       
- 
->
-
+    <main>
       <Navbar />
-
       <Hero />
-
-<TopSelling />
-<Reviews />
+      <TopSelling />
+      <Reviews />
     </main>
-    
   );
 }

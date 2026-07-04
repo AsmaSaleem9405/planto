@@ -238,8 +238,8 @@ export default function TopSelling2() {
           <Image 
             src="/images/bg-1.webp"
             alt="Page Background"
-            fill
-            priority
+           fill 
+          
             sizes="100vw"
             className="object-cover object-center pointer-events-none"
           />
