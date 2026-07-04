@@ -17,16 +17,19 @@ export default function Footer() {
 
           {/* Logo */}
           <div>
-            <Link href="/">
-              <Image
-                src="/gallery/logo.png"
-                alt="Planto Logo"
-                width={170}
-                height={60}
-                priority
-                className="mb-5"
-              />
-            </Link>
+            <Link href="/" className="inline-flex items-center gap-3 -mb-21">
+  <Image
+    src="/icons/logo.webp"
+    alt="Planto Logo"
+    width={70}
+    height={40}
+    priority
+  />
+
+  <span className="text-3xl font-bold pt-5 text-white tracking-wide">
+    Planto<span className="text-green-400">.</span>
+  </span>
+</Link>
 
             <p className="text-gray-300 leading-7 text-sm max-w-sm">
               We provide premium quality plants to make your
@@ -35,32 +38,36 @@ export default function Footer() {
             </p>
 
             <div className="flex gap-5 mt-8">
+  <a
+    href="https://www.facebook.com/"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Facebook"
+    className="hover:text-green-400 duration-300"
+  >
+    <FaFacebookF />
+  </a>
 
-              <a
-                href="#"
-                aria-label="Facebook"
-                className="hover:text-green-400 duration-300"
-              >
-                <FaFacebookF />
-              </a>
+  <a
+    href="https://x.com/"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Twitter"
+    className="hover:text-green-400 duration-300"
+  >
+    <FaTwitter />
+  </a>
 
-              <a
-                href="#"
-                aria-label="Twitter"
-                className="hover:text-green-400 duration-300"
-              >
-                <FaTwitter />
-              </a>
-
-              <a
-                href="#"
-                aria-label="LinkedIn"
-                className="hover:text-green-400 duration-300"
-              >
-                <FaLinkedinIn />
-              </a>
-
-            </div>
+  <a
+    href="https://pk.linkedin.com/"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="LinkedIn"
+    className="hover:text-green-400 duration-300"
+  >
+    <FaLinkedinIn />
+  </a>
+</div>
           </div>
 
           {/* Links */}
