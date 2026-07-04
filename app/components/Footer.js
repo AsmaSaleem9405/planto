@@ -81,7 +81,7 @@ export default function Footer() {
 
               <li>
                 <Link
-                  href="/"
+                  href="/#home"
                   className="hover:text-green-400 duration-300"
                 >
                   Home

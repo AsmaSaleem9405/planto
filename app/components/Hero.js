@@ -36,7 +36,7 @@ export default function Hero() {
 }, [nextPlant]);
 
   return (
-    <section className="relative min-h-screen">
+<section id="home" className="relative min-h-screen">
       {/* Performance Fix: Optimized Next.js Background Image with high priority */}
       <div className="absolute inset-0 z-0">
         <Image
