@@ -9,42 +9,42 @@ const reviews = [
   {
     id: 1,
     name: "Maxn Raval",
-    image: "/gallery/person1.jpg", // Replace with your gallery image path
+    image: "/images/men1.jpg", // Replace with your gallery image path
     rating: 5,
     text: "Breathe Natural completely transformed my living room! The Monstera arrived in perfect condition and the care guides made it effortless to keep alive.",
   },
   {
     id: 2,
     name: "Venely K",
-    image: "/gallery/person2.jpg",
+    image: "/images/girl1.jpg",
     rating: 5,
     text: "I was skeptical about ordering plants online, but these premium indoor plants are stunning. Elegant, fresh, and they bring so much calm to my workspace.",
   },
   {
     id: 3,
     name: "Lii Thakur",
-    image: "/gallery/person3.jpg",
+    image: "/images/men2.jpg",
     rating: 5,
     text: "Excellent selection and premium quality. The snake plant looks gorgeous in my bedroom and truly brings a touch of effortless nature indoors.",
   },
   {
     id: 4,
     name: "Sarah Ahmed",
-    image: "/gallery/person4.jpg",
+    image: "/images/girl2.jpg",
     rating: 5,
     text: "The customer service is as wonderful as the plants. Effortless care instructions mean my living space stays vibrant and green year-round.",
   },
   {
     id: 5,
     name: "Zainab Malik",
-    image: "/gallery/person5.jpg",
+    image: "/images/girl3.jpg",
     rating: 5,
     text: "Beautiful aesthetics! The premium pots and healthy foliage instantly upgraded our office ambiance. Highly recommend Breathe Natural.",
   },
   {
     id: 6,
     name: "Rohit Kumar",
-    image: "/gallery/person6.jpg",
+    image: "/images/men3.jpg",
     rating: 5,
     text: "A breath of fresh air literally. The indoor plant package brings a serene and healthy atmosphere to the entire home layout.",
   },
