@@ -2,27 +2,31 @@
 
 import { useEffect, useState } from "react";
 
-const cards = [
+const cards = 
+ [
   {
     id: 1,
-    image: "/plant1.png",
-    title: "We Have Small And Best O2 Plants Collection",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    image: "/images/plant1.webp",
+    title: "Pure Green Plants",
+    description: `Fresh plants that brighten your space. Clean air, natural beauty every day. Perfect for homes and offices.
+
+Grown with care for lasting freshness. Bring nature closer to your lifestyle. Discover the joy of fresh greenery every day.`,
   },
   {
     id: 2,
-    image: "/plant2.png",
-    title: "Fresh Green Indoor Plants",
-    description:
-      "Beautiful indoor plants that purify air and improve your home decoration.",
+    image: "/images/plant2.webp",
+    title: "Indoor Green Collection",
+    description: `Healthy indoor plants for every home. Add freshness and style effortlessly. Easy to care for and long-lasting.
+
+Ideal for living rooms and workspaces. Enjoy a greener and healthier environment. Refresh your interiors with timeless natural beauty.`,
   },
   {
     id: 3,
-    image: "/plant3.png",
-    title: "Premium Decorative Plants",
-    description:
-      "Bring nature into your home with our premium decorative indoor plants.",
+    image: "/images/plant3.webp",
+    title: "Elegant Home Plants",
+    description: `Premium plants for modern interiors. Create a calm and refreshing atmosphere. A perfect touch of natural elegance.
+
+Designed to complement every décor. Make every corner feel fresh and vibrant. Transform your home into a peaceful green oasis.`,
   },
 ];
 
@@ -49,34 +53,29 @@ export default function BestPlants() {
 
   return (
     <section
-      className="relative overflow-hidden bg-cover bg-center py-20"
+      className="py-10 md:py-20 bg-cover bg-center"
       style={{
-        backgroundImage: "url('/bg.jpg')",
+        backgroundImage: "url('/images/bg-1.webp')",
       }}
     >
-      <div className="absolute inset-0 bg-[#0f1d12]/90"></div>
-
-      <div className="relative max-w-7xl mx-auto px-5">
+      <div className="max-w-7xl mx-auto px-5">
 
         {/* Heading */}
-
-        <div className="flex justify-center mb-14">
-          <h2 className="relative text-white text-4xl font-bold">
+        <div className="flex justify-center mb-10 md:mb-14">
+          <h2 className="relative text-white text-2xl md:text-4xl font-bold">
             Our Best O2
 
-            <span className="absolute -left-5 top-2 w-5 h-5 border-l-2 border-t-2 border-lime-500"></span>
+            <span className="absolute -left-5 top-1 w-5 h-5 border-l-2 border-t-2 border-lime-500"></span>
 
-            <span className="absolute -right-5 bottom-2 w-5 h-5 border-r-2 border-b-2 border-lime-500"></span>
-
+            <span className="absolute -right-5 bottom-1 w-5 h-5 border-r-2 border-b-2 border-lime-500"></span>
           </h2>
         </div>
 
         {/* Slider */}
-
-        <div className="relative overflow-hidden rounded-[35px] border border-white/20">
+        <div className="relative overflow-hidden rounded-[35px] border border-white/10">
 
           <div
-            className="flex transition-transform duration-700 ease-in-out"
+            className="flex transition-transform -mt-1 duration-700 ease-in-out"
             style={{
               transform: `translateX(-${current * 100}%)`,
             }}
@@ -84,67 +83,63 @@ export default function BestPlants() {
             {cards.map((item) => (
               <div
                 key={item.id}
-                className="min-w-full bg-white/5 backdrop-blur-sm"
+                className="min-w-full bg-[#252d21] h-[430px]"
               >
-                <div className="grid lg:grid-cols-2 gap-10 items-center px-10 py-12">
+                {/* Structure completely unchanged - adjusted layout distribution */}
+                <div className="grid lg:grid-cols-[45%_55%] h-full items-center p-4 lg:p-0">
 
-                  <div className="flex justify-center">
+                  {/* Left Image - Increased mobile height threshold */}
+                  <div className="flex justify-center items-end h-full max-h-[190px] lg:max-h-full">
                     <img
                       src={item.image}
                       alt={item.title}
                       loading="lazy"
-                      className="w-[320px] md:w-[380px] object-contain"
+                      className="w-auto h-full max-h-[180px] md:max-h-none md:w-[650px] lg:w-[520px] object-contain lg:-mb-5"
                     />
                   </div>
 
-                  <div>
+                  {/* Right Content */}
+                  <div className="px-2 md:px-6 lg:px-10 lg:-mt-20 max-w-xl flex flex-col h-[210px] lg:h-auto justify-between">
 
-                    <h3 className="text-white text-3xl font-bold leading-snug mb-6">
-                      {item.title}
-                    </h3>
+                    <div>
+                      <h3 className="text-white text-xl md:text-3xl lg:text-4xl font-bold leading-tight mb-1 lg:mb-6">
+                        {item.title}
+                      </h3>
 
-                    <p className="text-gray-300 leading-8 mb-5">
-                      {item.description}
-                    </p>
+                      {/* FIXED THE CUT-OFF TEXT: Allowed text block to scroll if it exceeds its height block on mobile */}
+                      <p className="text-gray-300 text-xs md:text-base leading-5 md:leading-8 mb-2 lg:mb-6 whitespace-pre-line max-h-[110px] lg:max-h-none overflow-y-auto pr-1 custom-scrollbar">
+                        {item.description}
+                      </p>
+                    </div>
 
-                    <p className="text-gray-400 leading-8 mb-8">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Ut enim ad minim veniam.
-                    </p>
+                    <div className="flex items-center justify-between mt-1 lg:mt-10">
+                      <button className="border border-gray-500 rounded-md px-5 py-2 lg:px-8 lg:py-3 text-white text-sm hover:bg-lime-500 hover:border-lime-500 transition">
+                        Explore
+                      </button>
 
-                    <button className="border border-gray-400 text-white px-8 py-3 rounded-lg hover:bg-lime-500 hover:border-lime-500 transition">
-                      Explore
-                    </button>
-
-                    <div className="flex items-center justify-between mt-10">
-
-                      <div className="text-white">
-                        {String(current + 1).padStart(2, "0")}/
-                        {String(cards.length).padStart(2, "0")}
-                      </div>
-
-                      <div className="flex gap-4">
-
+                      <div className="flex items-center gap-4 lg:gap-6">
                         <button
                           onClick={prevSlide}
-                          className="text-white text-2xl"
+                          className="text-gray-400 hover:text-white text-xl lg:text-2xl transition"
                         >
                           ❮
                         </button>
 
+                        <span className="text-gray-300 text-xs lg:text-sm tracking-wider">
+                          {String(current + 1).padStart(2, "0")}/
+                          {String(cards.length).padStart(2, "0")}
+                        </span>
+
                         <button
                           onClick={nextSlide}
-                          className="text-white text-2xl"
+                          className="text-gray-400 hover:text-white text-xl lg:text-2xl transition"
                         >
                           ❯
                         </button>
-
                       </div>
-
                     </div>
 
                   </div>
-
                 </div>
               </div>
             ))}
@@ -153,21 +148,18 @@ export default function BestPlants() {
         </div>
 
         {/* Dots */}
-
-        <div className="flex justify-center mt-10 gap-3">
-
+        <div className="flex justify-center gap-3 mt-10">
           {cards.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrent(index)}
-              className={`h-2 rounded-full transition-all ${
+              className={`transition-all duration-300 rounded-full ${
                 current === index
-                  ? "bg-white w-8"
-                  : "bg-gray-500 w-2"
+                  ? "w-8 h-2 bg-white"
+                  : "w-2 h-2 bg-gray-500"
               }`}
             />
           ))}
-
         </div>
 
       </div>
