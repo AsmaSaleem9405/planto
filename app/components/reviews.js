@@ -82,15 +82,9 @@ export default function Testimonials() {
 
   return (
     <section 
-      className="relative min-h-[80px] bg-[#0c160c] py-20 px-4 overflow-hidden flex flex-col items-center justify-center select-none"
-      aria-label="Customer Reviews"
-    >
-      {/* Background Image Overlay - update path to your background image */}
-      <div 
-        className="absolute inset-0 bg-[url('/gallery/bg-plants.jpg')] bg-cover bg-center opacity-10 mix-blend-overlay pointer-events-none" 
-        style={{ backgroundImage: `url('/gallery/bg-plants.jpg')` }}
-      />
-
+  className="relative min-h-[80px] bg-[#0c160c] bg-[url('/images/bg-1.png')] bg-cover bg-center bg-no-repeat py-20 px-4 overflow-hidden flex flex-col items-center justify-center select-none"
+  aria-label="Customer Reviews"
+>
       {/* Structured SEO Schema Data */}
       <script
         type="application/ld+json"
@@ -128,7 +122,7 @@ export default function Testimonials() {
         {/* Left Hidden/Blur Card (Mobile Responsive: hidden on smaller viewports) */}
         <div 
           onClick={handlePrev}
-          className="absolute left-0 hidden lg:flex w-[320px] h-[300px] flex-col justify-between p-8 bg-[#1a241a]/60 backdrop-blur-md rounded-[2.5rem_1.5rem_2.5rem_1.5rem] border border-white/5 opacity-30 blur-[4px] scale-90 cursor-pointer transition-all duration-500 hover:opacity-40"
+          className="absolute left-0 hidden lg:flex w-[320px] h-[300px] flex-col justify-between p-8 bg-[#1a241a]/60 backdrop-blur-sm rounded-[2.5rem_1.5rem_2.5rem_1.5rem] border border-white/50 opacity-35 blur-[1px] scale-90 cursor-pointer transition-all duration-500 hover:opacity-40"
         >
           <CardContent review={reviews[left]} />
         </div>
@@ -150,7 +144,7 @@ export default function Testimonials() {
         {/* Right Hidden/Blur Card */}
         <div 
           onClick={handleNext}
-          className="absolute right-0 hidden lg:flex w-[320px] h-[300px] flex-col justify-between p-8 bg-[#1a241a]/60 backdrop-blur-md rounded-[2.5rem_1.5rem_2.5rem_1.5rem] border border-white/5 opacity-30 blur-[4px] scale-90 cursor-pointer transition-all duration-500 hover:opacity-40"
+          className="absolute right-0 hidden lg:flex w-[320px] h-[300px] flex-col justify-between p-8 bg-[#1a241a]/60 backdrop-blur-sm rounded-[2.5rem_1.5rem_2.5rem_1.5rem] border border-white/50 opacity-35 blur-[1px] scale-90 cursor-pointer transition-all duration-500 hover:opacity-40"
         >
           <CardContent review={reviews[right]} />
         </div>
