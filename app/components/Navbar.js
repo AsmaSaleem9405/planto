@@ -4,9 +4,9 @@ import Link from "next/link";
 import Image from "next/image"
 
 import { useState, useEffect, useRef } from "react";
-import { useSearchParams, useRouter } from "next/navigation"; // Added useRouter for navigation
+import { useSearchParams, useRouter } from "next/navigation"; 
 import { useCart } from "@/app/context/CartContext";
-import CartDrawer from "./CartDrawer"; // Adjust path if needed depending on file location
+import CartDrawer from "./CartDrawer"; 
 import {
   FiMenu,
   FiX,
@@ -43,7 +43,7 @@ export default function Navbar() {
   const router = useRouter();
 
   const dropdownRef = useRef(null);
-  const searchInputRef = useRef(null); // Ref to auto-focus the input box
+  const searchInputRef = useRef(null); 
   const searchParams = useSearchParams();
   const activePlantId = searchParams.get("id");
 
@@ -106,41 +106,34 @@ export default function Navbar() {
     }
   }, [showSearchInput]);
 
- // --- Live Search Form Submission Trigger ---
+  // --- Live Search Form Submission Trigger ---
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     const query = searchQuery.trim().toLowerCase();
     
     if (query) {
-      // 1. Check if what they typed matches a specific plant name
       const matchedPlant = topSellingPlants.find((plant) =>
         plant.name.toLowerCase().includes(query)
       );
 
       if (matchedPlant) {
-        // Direct jump to that specific plant's id in the plants section
         window.location.href = `/?id=${matchedPlant.id}#plants`;
       } else if ("reviews".includes(query) || "review".includes(query)) {
-        // Direct jump to reviews section
         window.location.href = "/#review";
       } else if ("contact".includes(query) || "support".includes(query)) {
-        // Direct jump to contact section
         window.location.href = "/#contact";
       } else if ("more".includes(query) || "best".includes(query)) {
-        // Direct jump to best plants/more section
         window.location.href = "/#plants";
       } else {
-        // Default fallback back to the main plants section if nothing specific matches
         window.location.href = "/#plants";
       }
 
-      // Reset menu states
       setSearchQuery(""); 
       setShowSearchInput(false);
       setOpen(false); 
     }
   };
-  // Glow classes utility
+
   const activeGlow = "text-emerald-400 font-semibold drop-shadow-[0_0_10px_rgba(52,211,153,0.6)]";
   const hoverGlow = "text-gray-300 hover:text-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]";
 
@@ -163,12 +156,7 @@ export default function Navbar() {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-8">
-              <Link 
-                href="#home" 
-                className={`transition duration-300 ${
-                  activeSection === "home" ? activeGlow : hoverGlow
-                }`}
-              >
+              <Link href="#home" className={`transition duration-300 ${activeSection === "home" ? activeGlow : hoverGlow}`}>
                 Home
               </Link>
 
@@ -179,12 +167,7 @@ export default function Navbar() {
                 onMouseEnter={() => setDropdownOpen(true)}
                 onMouseLeave={() => setDropdownOpen(false)}
               >
-                <Link 
-                  href="#plants" 
-                  className={`transition duration-300 ${
-                    activeSection === "plants" ? activeGlow : hoverGlow
-                  }`}
-                >
+                <Link href="#plants" className={`transition duration-300 ${activeSection === "plants" ? activeGlow : hoverGlow}`}>
                   Plant Types
                 </Link>
                 <button
@@ -219,46 +202,31 @@ export default function Navbar() {
                   </div>
                 )}
               </div>
-<Link 
-                href="#bestplants" 
-                className={`transition duration-300 ${
-                  activeSection === "bestplants" ? activeGlow : hoverGlow
-                }`}
-              >
+
+              <Link href="#bestplants" className={`transition duration-300 ${activeSection === "bestplants" ? activeGlow : hoverGlow}`}>
                 Best Plants
               </Link>
-              <Link 
-                href="#review" 
-                className={`transition duration-300 ${
-                  activeSection === "review" ? activeGlow : hoverGlow
-                }`}
-              >
+              <Link href="#review" className={`transition duration-300 ${activeSection === "review" ? activeGlow : hoverGlow}`}>
                 Testimonials
               </Link>
-
-              
-              <Link 
-                href="#contact" 
-                className={`transition duration-300 ${
-                  activeSection === "contact" ? activeGlow : hoverGlow
-                }`}
-              >
+              <Link href="#contact" className={`transition duration-300 ${activeSection === "contact" ? activeGlow : hoverGlow}`}>
                 Contact
               </Link>
             </nav>
 
-            {/* Icons */}
-            <div className="hidden lg:flex items-center gap-5">
-              {/* Desktop Dynamic Search Input field */}
+            {/* Right-aligned Header Elements (Icons & Mobile Trigger) */}
+            <div className="flex items-center gap-4 lg:gap-5">
+              
+              {/* Dynamic Search Box (Desktop & Mobile) */}
               {showSearchInput ? (
-                <form onSubmit={handleSearchSubmit} className="flex items-center bg-white/10 border border-white/20 rounded-full px-3 py-1 animate-in fade-in zoom-in-95 duration-200">
+                <form onSubmit={handleSearchSubmit} className="flex items-center bg-white/10 border border-white/20 rounded-full px-3 py-1 animate-in fade-in zoom-in-95 duration-200 max-w-[180px] sm:max-w-none">
                   <input
                     ref={searchInputRef}
                     type="text"
                     placeholder="Search plants..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="bg-transparent text-white text-sm outline-none placeholder-gray-400 w-40 focus:w-56 transition-all duration-300"
+                    className="bg-transparent text-white text-sm outline-none placeholder-gray-400 w-24 sm:w-40 focus:w-32 sm:focus:w-56 transition-all duration-300"
                   />
                   <button type="submit" className="text-emerald-400 ml-1">
                     <FiSearch size={16} />
@@ -276,7 +244,7 @@ export default function Navbar() {
                 </button>
               )}
               
-              {/* Interactive Bag Trigger layout element */}
+              {/* Shopping Bag Trigger (Desktop & Mobile) */}
               <button 
                 onClick={() => setIsCartOpen(true)}
                 className="relative text-white hover:text-emerald-400 transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.7)] duration-200"
@@ -288,12 +256,13 @@ export default function Navbar() {
                   </span>
                 )}
               </button>
+
+              {/* Mobile Menu Action Icon */}
+              <button onClick={() => setOpen(!open)} className="lg:hidden text-white z-[60] p-1 hover:text-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.7)] transition">
+                {open ? <FiX size={28} /> : <FiMenu size={28} />}
+              </button>
             </div>
 
-            {/* Mobile Menu Action Icon */}
-            <button onClick={() => setOpen(!open)} className="lg:hidden text-white z-[60] p-1 hover:text-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.7)] transition">
-              {open ? <FiX size={28} /> : <FiMenu size={28} />}
-            </button>
           </div>
         </div>
       </header>
@@ -377,60 +346,10 @@ export default function Navbar() {
               Contact
             </Link>
           </nav>
-
-          <div className="border-t border-white/10 my-5" />
-
-          {/* Mobile Search and Cart Elements */}
-          <div className="flex flex-col gap-4">
-            {showSearchInput ? (
-              <form onSubmit={handleSearchSubmit} className="flex items-center justify-between bg-white/10 border border-white/20 rounded-xl px-4 py-2 animate-in fade-in zoom-in-95 duration-200">
-                <input
-                  ref={searchInputRef}
-                  type="text"
-                  placeholder="Search plants..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-transparent text-white text-sm outline-none placeholder-gray-400 w-full"
-                />
-                <div className="flex items-center gap-2">
-                  <button type="submit" className="text-emerald-400">
-                    <FiSearch size={18} />
-                  </button>
-                  <button type="button" onClick={() => setShowSearchInput(false)} className="text-gray-400">
-                    <FiX size={18} />
-                  </button>
-                </div>
-              </form>
-            ) : (
-              <button 
-                onClick={() => setShowSearchInput(true)} 
-                className="flex items-center gap-3 text-white hover:text-emerald-400 group transition"
-              >
-                <FiSearch size={20} className="group-hover:drop-shadow-[0_0_6px_rgba(52,211,153,0.6)]" />
-                <span className="text-sm">Search Catalog</span>
-              </button>
-            )}
-            
-            <button 
-              onClick={() => {
-                setOpen(false);
-                setIsCartOpen(true);
-              }}
-              className="flex items-center gap-3 text-white hover:text-emerald-400 group transition relative"
-            >
-              <FiShoppingBag size={20} className="group-hover:drop-shadow-[0_0_6px_rgba(52,211,153,0.6)]" />
-              <span className="text-sm">View Cart</span>
-              {totalItems > 0 && (
-                <span className="bg-emerald-500 text-neutral-900 text-[10px] font-bold rounded-full min-w-[16px] h-4 px-1 flex items-center justify-center animate-pulse ml-1">
-                  {totalItems}
-                </span>
-              )}
-            </button>
-          </div>
         </div>
       </div>
 
-      {/* Render the drawer overlay component right below the navbar header layout */}
+      {/* Render the drawer overlay component */}
       <CartDrawer />
     </>
   );
