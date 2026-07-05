@@ -1,14 +1,16 @@
 "use client";
 import { FiShoppingBag } from "react-icons/fi";
-
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { FaPlay } from "react-icons/fa";
 import { IoStar } from "react-icons/io5";
 import { FaChevronRight } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { useCart } from "@/app/context/CartContext"; // Wired to global cart state
 
 export default function Hero() {
+  const { addToCart } = useCart();
   const plants = [
     {
       image: "/images/plant1.webp",
@@ -75,9 +77,12 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-wrap gap-5 mt-10">
-              <button className="bg-green-600 hover:bg-green-700 transition px-8 py-4 rounded-full font-semibold">
-                Explore Plants
-              </button>
+             <Link
+  href="/#plants"
+  className="inline-block bg-green-600 hover:bg-green-700 transition px-8 py-4 rounded-full font-semibold text-white"
+>
+  Explore Plants
+</Link>
               <button
                 onClick={() =>
                   window.open(
@@ -177,9 +182,11 @@ export default function Hero() {
                 </span>
 
                 <div className="flex justify-left">
-                  <button className="px-8 py-2.5 border -ml-4 border-white rounded-xl text-white text-lg font-medium bg-transparent hover:bg-green-600 hover:border-green-600 transition-all duration-300">
-                    Buy Now
-                  </button>
+                 <Link href="/#plants">
+  <button className="px-8 py-2.5 border -ml-4 border-white rounded-xl text-white text-lg font-medium bg-transparent hover:bg-green-600 hover:border-green-600 transition-all duration-300">
+    Buy Now
+  </button>
+</Link>
                 </div>
               </div>
 
@@ -201,140 +208,152 @@ export default function Hero() {
           </motion.div>
         </div>
       </div>
+<section className="relative z-20 -mt-10 pb-20">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        <h2 className="text-center text-white text-3xl lg:text-4xl mt-20 lg:mt-29 font-bold mb-14">
+          Our Trendy Plants
+        </h2>
 
-      <section className="relative z-20 -mt-10 pb-20">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <h2 className="text-center text-white text-3xl lg:text-4xl mt-20 lg:mt-29 font-bold mb-14">
-            Our Trendy Plants
-          </h2>
+        {/* First Card - Peace Lily */}
+        <div className="relative rounded-[50px] lg:rounded-[110px] border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden lg:overflow-visible mb-8">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 lg:h-[320px]">
+            <motion.div
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ type: "spring", stiffness: 60, damping: 25 }}
+              className="relative z-0 flex justify-center items-center h-[250px] lg:h-auto"
+            >
+              <Image
+                src="/images/plant4.webp"
+                alt="Peace Lily Plant" // <-- Fixed (Matches client)
+                width={400}
+                height={400}
+                loading="lazy"
+                className="w-[220px] sm:w-[260px] lg:w-auto lg:absolute lg:left-6 lg:-top-24 pointer-events-none"
+              />
+            </motion.div>
 
-          {/* First Card */}
-          <div className="relative rounded-[50px] lg:rounded-[110px] border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden lg:overflow-visible mb-8">
-            <div className="flex flex-col lg:grid lg:grid-cols-2 lg:h-[320px]">
-              {/* Plant */}
-              <motion.div
-                initial={{ opacity: 0, x: -100 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ type: "spring", stiffness: 60, damping: 25 }}
-                className="relative z-0 flex justify-center items-center h-[250px] lg:h-auto"
-              >
-                <Image
-                  src="/images/plant4.webp"
-                  alt="Plant"
-                  width={400}
-                  height={400}
-                  loading="lazy" // Performance Fix: Loads only when scrolled to
-                  className="w-[220px] sm:w-[260px] lg:w-auto lg:absolute lg:left-6 lg:-top-24 pointer-events-none"
-                />
-              </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ delay: 0.1, duration: 0.5, ease: "easeOut" }}
+              className="relative z-10 flex flex-col justify-center mt-4 text-white px-6 pb-8 lg:pr-10 lg:px-0"
+            >
+              <h3 className="text-[22px] font-medium">Peace Lily</h3>
+              <p className="text-[11px] text-gray-300 mt-2 leading-5 max-w-[260px]">
+                The Peace Lily is a beautiful indoor plant known for its glossy green leaves and elegant white flowers. It adds a fresh, modern look to homes and offices while helping improve indoor air quality. It's an excellent choice for beginners because it requires minimal care.
+              </p>
+              <h4 className="text-[30px] font-semibold mt-4">Rs. 599/-</h4>
 
-              {/* Content */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ delay: 0.1, duration: 0.5, ease: "easeOut" }}
-                className="relative z-10 flex flex-col justify-center mt-4 text-white px-6 pb-8 lg:pr-10 lg:px-0"
-              >
-                <h3 className="text-[22px] font-medium">Peace Lily</h3>
+              <div className="flex items-center gap-3 mt-4">
+               <Link
+  href="/plants"
+  className="inline-block h-[38px] px-6 rounded-md border border-white text-sm hover:bg-green-600 transition-all duration-300 leading-[38px] text-center"
+>
+  Explore
+</Link>
 
-                <p className="text-[11px] text-gray-300 mt-2 leading-5 max-w-[260px]">
-                  The Peace Lily is a beautiful indoor plant known for its
-                  glossy green leaves and elegant white flowers. It adds a
-                  fresh, modern look to homes and offices while helping improve
-                  indoor air quality. It's an excellent choice for beginners
-                  because it requires minimal care.
-                </p>
-
-                <h4 className="text-[30px] font-semibold mt-4">Rs. 599/-</h4>
-
-                <div className="flex items-center gap-3 mt-4">
-                  <button className="h-[38px] px-6 rounded-md border border-white text-sm hover:bg-green-600 transition-all duration-300">
-                    Explore
-                  </button>
-
-                  <button className="h-[38px] w-[38px] flex items-center justify-center rounded-md border border-white hover:bg-green-600 transition-all duration-300">
-                    <FiShoppingBag size={15} />
-                  </button>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-
-          {/* Second Card */}
-          <div className="relative rounded-[50px] lg:rounded-[110px] border mt-12 lg:mt-18 border-white/10 bg-white/5 backdrop-blur-md overflow-hidden lg:overflow-visible">
-            <div className="flex flex-col lg:grid lg:grid-cols-2 lg:h-[320px]">
-              {/* Plant (Mobile Top) */}
-              <motion.div
-                initial={{ opacity: 0, x: 100 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ type: "spring", stiffness: 60, damping: 25 }}
-                className="relative flex justify-center items-center h-[250px] lg:hidden"
-              >
-                <Image
-                  src="/images/plant6.webp"
-                  alt="Plant"
-                  width={600}
-                  height={460}
-                  loading="lazy"
-                  className="w-[240px]"
-                />
-              </motion.div>
-
-              {/* Content */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ delay: 0.1, duration: 0.5, ease: "easeOut" }}
-                className="flex flex-col justify-center mt-4 text-white px-6 pb-8 lg:pl-40 lg:px-0"
-              >
-                <h3 className="text-[22px] font-medium">Zebra Haworthia</h3>
-
-                <p className="text-[11px] text-gray-300 mt-2 leading-5 max-w-[260px]">
-                  Zebra Haworthia is a compact succulent with striking dark
-                  green leaves covered in white zebra-like stripes. Its unique
-                  appearance and drought tolerance make it a perfect desk,
-                  shelf, or windowsill plant for beginners and busy plant
-                  lovers.
-                </p>
-
-                <h4 className="text-[30px] font-semibold mt-4">Rs. 579/-</h4>
-
-                <div className="flex items-center gap-3 mt-4">
-                  <button className="h-[38px] px-6 rounded-md border border-white text-sm hover:bg-green-600 transition-all duration-300">
-                    Explore
-                  </button>
-
-                  <button className="h-[38px] w-[38px] flex items-center justify-center rounded-md border border-white hover:bg-green-600 transition-all duration-300">
-                    <FiShoppingBag size={15} />
-                  </button>
-                </div>
-              </motion.div>
-
-              {/* Desktop Plant */}
-              <motion.div
-                initial={{ opacity: 0, x: 100 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ type: "spring", stiffness: 60, damping: 25 }}
-                className="relative hidden lg:flex items-center justify-center"
-              >
-                <Image
-                  src="/images/plant6.webp"
-                  alt="Plant"
-                  width={600}
-                  height={460}
-                  loading="lazy"
-                  className="absolute left-6 -top-36"
-                />
-              </motion.div>
-            </div>
+                <button
+                  onClick={() =>
+                    addToCart({
+                      id: 101,
+                      name: "Peace Lily",
+                      scientificName: "Spathiphyllum",
+                      price: "Rs. 599/-",
+                      image: "/images/plant4.webp",
+                    })
+                  }
+                  aria-label="Add Peace Lily to cart" // <-- Fixed (Matches client)
+                  className="h-[38px] w-[38px] flex items-center justify-center rounded-md border border-white hover:bg-green-600 transition-all duration-300 active:scale-95 transform"
+                >
+                  <FiShoppingBag size={15} />
+                </button>
+              </div>
+            </motion.div>
           </div>
         </div>
-      </section>
+
+        {/* Second Card - Zebra Haworthia */}
+        <div className="relative rounded-[50px] lg:rounded-[110px] border mt-12 lg:mt-18 border-white/10 bg-white/5 backdrop-blur-md overflow-hidden lg:overflow-visible">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 lg:h-[320px]">
+            <motion.div
+              initial={{ opacity: 0, x: 100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ type: "spring", stiffness: 60, damping: 25 }}
+              className="relative flex justify-center items-center h-[250px] lg:hidden"
+            >
+              <Image
+                src="/images/plant6.webp"
+                alt="Zebra Haworthia Plant" // <-- Fixed (Matches client)
+                width={600}
+                height={460}
+                loading="lazy"
+                className="w-[240px]"
+              />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ delay: 0.1, duration: 0.5, ease: "easeOut" }}
+              className="flex flex-col justify-center mt-4 text-white px-6 pb-8 lg:pl-40 lg:px-0"
+            >
+              <h3 className="text-[22px] font-medium">Zebra Haworthia</h3>
+              <p className="text-[11px] text-gray-300 mt-2 leading-5 max-w-[260px]">
+                Zebra Haworthia is a compact succulent with striking dark green leaves covered in white zebra-like stripes. Its unique appearance and drought tolerance make it a perfect desk, shelf, or windowsill plant for beginners and busy plant lovers.
+              </p>
+              <h4 className="text-[30px] font-semibold mt-4">Rs. 579/-</h4>
+
+              <div className="flex items-center gap-3 mt-4">
+               <Link
+  href="/plants"
+  className="inline-block h-[38px] px-6 rounded-md border border-white text-sm hover:bg-green-600 transition-all duration-300 leading-[38px] text-center"
+>
+  Explore
+</Link>
+
+                <button
+                  onClick={() =>
+                    addToCart({
+                      id: 6,
+                      name: "Zebra Haworthia",
+                      scientificName: "Hawardiopsis attenuata",
+                      price: "Rs. 579/-",
+                      image: "/images/plant6.webp",
+                    })
+                  }
+                  aria-label="Add Zebra Haworthia to cart" // <-- Fixed (Matches client)
+                  className="h-[38px] w-[38px] flex items-center justify-center rounded-md border border-white hover:bg-green-600 transition-all duration-300 active:scale-95 transform"
+                >
+                  <FiShoppingBag size={15} />
+                </button>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ type: "spring", stiffness: 60, damping: 25 }}
+              className="relative hidden lg:flex items-center justify-center"
+            >
+              <Image
+                src="/images/plant6.webp"
+                alt="Zebra Haworthia Plant" // <-- Fixed (Matches client)
+                width={600}
+                height={460}
+                loading="lazy"
+                className="absolute left-6 -top-36"
+              />
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </section>
     </section>
   );
 }
