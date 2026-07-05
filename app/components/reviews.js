@@ -98,7 +98,7 @@ export default function Testimonials() {
   const right = (currentIndex + 1) % total;
 
   return (
-    <section 
+    <section id="review"
       className="relative min-h-[80px] bg-[#0c160c] bg-[url('/images/bg-1.webp')] bg-cover bg-center bg-no-repeat py-20 px-4 overflow-hidden flex flex-col items-center justify-center select-none"
       aria-label="Customer Reviews"
     >

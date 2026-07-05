@@ -120,7 +120,7 @@ export default function Navbar() {
                 )}
               </div>
 
-              <Link href="#" className="text-gray-300 hover:text-green-400 transition duration-300">
+              <Link href="#bestplants" className="text-gray-300 hover:text-green-400 transition duration-300">
                 More
               </Link>
               <Link href="#" className="text-gray-300 hover:text-green-400 transition duration-300">

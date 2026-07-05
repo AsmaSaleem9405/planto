@@ -52,7 +52,7 @@ export default function BestPlants() {
   };
 
   return (
-    <section
+    <section id="bestplants"
       className="py-10 md:py-20 bg-cover bg-center"
       style={{
         backgroundImage: "url('/images/bg-1.webp')",
@@ -63,7 +63,7 @@ export default function BestPlants() {
         {/* Heading */}
         <div className="flex justify-center mb-10 md:mb-14">
           <h2 className="relative text-white text-2xl md:text-4xl font-bold">
-            Our Best O2
+            Our Best Plants
 
             <span className="absolute -left-5 top-1 w-5 h-5 border-l-2 border-t-2 border-lime-500"></span>
 

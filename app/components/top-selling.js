@@ -283,7 +283,7 @@ export default function TopSelling2() {
           <div className="inline-block border-t-2 border-b-2 border-l-2 border-emerald-500/50 rounded-tl-xl rounded-bl-xl px-6 py-2 border-r-2 border-r-transparent relative">
             <div className="absolute top-0 right-0 h-full w-2 border-t-2 border-b-2 border-r-2 border-emerald-500/50 rounded-tr-xl rounded-br-xl -mr-2"></div>
             <h1 className="text-2xl md:text-3xl font-bold tracking-wide text-white drop-shadow">
-              Our Top Selling Plants
+             Browse Our Plants
             </h1>
           </div>
         </header>
