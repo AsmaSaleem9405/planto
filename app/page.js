@@ -32,8 +32,9 @@ export default function Home() {
       <Navbar />
       <Hero />
       <TopSelling />
+       <BestPlants />
       <Reviews />
-        <BestPlants />
+       
       <Contact />
         <Footer />
     </main>
