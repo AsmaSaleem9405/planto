@@ -243,13 +243,14 @@ export default function Hero() {
             >
               <h3 className="text-[22px] font-medium">Peace Lily</h3>
               <p className="text-[11px] text-gray-300 mt-2 leading-5 max-w-[260px]">
-                The Peace Lily is a beautiful indoor plant known for its glossy green leaves and elegant white flowers. It adds a fresh, modern look to homes and offices while helping improve indoor air quality. It's an excellent choice for beginners because it requires minimal care.
+                The Peace Lily is a beautiful indoor plant known for its glossy green leaves and elegant white flowers. It adds a fresh, modern look to homes and offices while helping improve indoor air quality.
+                
               </p>
               <h4 className="text-[30px] font-semibold mt-4">Rs. 599/-</h4>
 
               <div className="flex items-center gap-3 mt-4">
                <Link
-  href="/plants"
+  href="#plants"
   className="inline-block h-[38px] px-6 rounded-md border border-white text-sm hover:bg-green-600 transition-all duration-300 leading-[38px] text-center"
 >
   Explore
@@ -310,7 +311,7 @@ export default function Hero() {
 
               <div className="flex items-center gap-3 mt-4">
                <Link
-  href="/plants"
+  href="#plants"
   className="inline-block h-[38px] px-6 rounded-md border border-white text-sm hover:bg-green-600 transition-all duration-300 leading-[38px] text-center"
 >
   Explore

@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/image"
+
 import { useState, useEffect, useRef } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation"; // Added useRouter for navigation
 import { useCart } from "@/app/context/CartContext";
 import CartDrawer from "./CartDrawer"; // Adjust path if needed depending on file location
 import {
@@ -36,7 +37,13 @@ export default function Navbar() {
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false); 
   const [activeSection, setActiveSection] = useState("home"); 
 
+  // --- Search Functional States ---
+  const [showSearchInput, setShowSearchInput] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
+
   const dropdownRef = useRef(null);
+  const searchInputRef = useRef(null); // Ref to auto-focus the input box
   const searchParams = useSearchParams();
   const activePlantId = searchParams.get("id");
 
@@ -92,6 +99,47 @@ export default function Navbar() {
     };
   }, [open]);
 
+  // Focus on search input when it is opened
+  useEffect(() => {
+    if (showSearchInput && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [showSearchInput]);
+
+ // --- Live Search Form Submission Trigger ---
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    const query = searchQuery.trim().toLowerCase();
+    
+    if (query) {
+      // 1. Check if what they typed matches a specific plant name
+      const matchedPlant = topSellingPlants.find((plant) =>
+        plant.name.toLowerCase().includes(query)
+      );
+
+      if (matchedPlant) {
+        // Direct jump to that specific plant's id in the plants section
+        window.location.href = `/?id=${matchedPlant.id}#plants`;
+      } else if ("reviews".includes(query) || "review".includes(query)) {
+        // Direct jump to reviews section
+        window.location.href = "/#review";
+      } else if ("contact".includes(query) || "support".includes(query)) {
+        // Direct jump to contact section
+        window.location.href = "/#contact";
+      } else if ("more".includes(query) || "best".includes(query)) {
+        // Direct jump to best plants/more section
+        window.location.href = "/#plants";
+      } else {
+        // Default fallback back to the main plants section if nothing specific matches
+        window.location.href = "/#plants";
+      }
+
+      // Reset menu states
+      setSearchQuery(""); 
+      setShowSearchInput(false);
+      setOpen(false); 
+    }
+  };
   // Glow classes utility
   const activeGlow = "text-emerald-400 font-semibold drop-shadow-[0_0_10px_rgba(52,211,153,0.6)]";
   const hoverGlow = "text-gray-300 hover:text-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]";
@@ -201,9 +249,32 @@ export default function Navbar() {
 
             {/* Icons */}
             <div className="hidden lg:flex items-center gap-5">
-              <button className="text-white hover:text-emerald-400 transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.7)] duration-200">
-                <FiSearch size={22} />
-              </button>
+              {/* Desktop Dynamic Search Input field */}
+              {showSearchInput ? (
+                <form onSubmit={handleSearchSubmit} className="flex items-center bg-white/10 border border-white/20 rounded-full px-3 py-1 animate-in fade-in zoom-in-95 duration-200">
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    placeholder="Search plants..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="bg-transparent text-white text-sm outline-none placeholder-gray-400 w-40 focus:w-56 transition-all duration-300"
+                  />
+                  <button type="submit" className="text-emerald-400 ml-1">
+                    <FiSearch size={16} />
+                  </button>
+                  <button type="button" onClick={() => setShowSearchInput(false)} className="text-gray-400 hover:text-white ml-2 text-xs">
+                    <FiX size={14} />
+                  </button>
+                </form>
+              ) : (
+                <button 
+                  onClick={() => setShowSearchInput(true)} 
+                  className="text-white hover:text-emerald-400 transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.7)] duration-200"
+                >
+                  <FiSearch size={22} />
+                </button>
+              )}
               
               {/* Interactive Bag Trigger layout element */}
               <button 
@@ -309,11 +380,37 @@ export default function Navbar() {
 
           <div className="border-t border-white/10 my-5" />
 
+          {/* Mobile Search and Cart Elements */}
           <div className="flex flex-col gap-4">
-            <button className="flex items-center gap-3 text-white hover:text-emerald-400 group transition">
-              <FiSearch size={20} className="group-hover:drop-shadow-[0_0_6px_rgba(52,211,153,0.6)]" />
-              <span className="text-sm">Search Catalog</span>
-            </button>
+            {showSearchInput ? (
+              <form onSubmit={handleSearchSubmit} className="flex items-center justify-between bg-white/10 border border-white/20 rounded-xl px-4 py-2 animate-in fade-in zoom-in-95 duration-200">
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  placeholder="Search plants..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="bg-transparent text-white text-sm outline-none placeholder-gray-400 w-full"
+                />
+                <div className="flex items-center gap-2">
+                  <button type="submit" className="text-emerald-400">
+                    <FiSearch size={18} />
+                  </button>
+                  <button type="button" onClick={() => setShowSearchInput(false)} className="text-gray-400">
+                    <FiX size={18} />
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <button 
+                onClick={() => setShowSearchInput(true)} 
+                className="flex items-center gap-3 text-white hover:text-emerald-400 group transition"
+              >
+                <FiSearch size={20} className="group-hover:drop-shadow-[0_0_6px_rgba(52,211,153,0.6)]" />
+                <span className="text-sm">Search Catalog</span>
+              </button>
+            )}
+            
             <button 
               onClick={() => {
                 setOpen(false);
