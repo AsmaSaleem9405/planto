@@ -1,14 +1,22 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import fs from "fs";
-import path from "path";
 
 export async function POST(request) {
   try {
     const body = await request.json();
     const { formData, cart, subTotal, discountAmount, grandTotal } = body;
 
-    // 1. Configure SMTP email transporter
+    // 1. Check if environment variables exist
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      throw new Error("Missing email credentials in server environment variables.");
+    }
+
+    // 2. Generate the domain layout dynamically based on deployment
+    const host = request.headers.get("host") || "localhost:3000";
+    const protocol = host.includes("localhost") ? "http" : "https";
+    const baseUrl = `${protocol}://${host}`;
+
+    // 3. Configure SMTP email transporter
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -17,31 +25,23 @@ export async function POST(request) {
       },
     });
 
-    // 2. Prepare dynamic inline image attachments
     const attachments = [];
     
-    // 3. Format the cart items layout
+    // 4. Format the cart items safely
     const itemsHtml = cart
       .map((item, index) => {
         const cidName = `plant_image_${index}`;
         
-        // Handle local image paths safely (assuming images are inside the /public folder)
-        if (item.image.startsWith("/")) {
-          const localPath = path.join(process.cwd(), "public", item.image);
-          if (fs.existsSync(localPath)) {
-            attachments.push({
-              filename: path.basename(localPath),
-              path: localPath,
-              cid: cidName
-            });
-          }
-        } else {
-          // If it's already an external online URL link
-          attachments.push({
-            path: item.image,
-            cid: cidName
-          });
-        }
+        // Build the correct absolute URL for the plant image
+        const absoluteImageUrl = item.image.startsWith("http")
+          ? item.image
+          : `${baseUrl}${item.image.startsWith("/") ? "" : "/"}${item.image}`;
+
+        // Pass the image URL directly as a cloud asset path to the attachment metadata array
+        attachments.push({
+          path: absoluteImageUrl,
+          cid: cidName
+        });
 
         return `
         <tr>
@@ -63,7 +63,7 @@ export async function POST(request) {
       })
       .join("");
 
-    // 4. Compose the final email structure
+    // 5. Compose the final email template layout structure
     const emailHtml = `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
         <h2 style="background-color: #10b981; color: white; padding: 15px; margin-bottom: 20px; border-radius: 8px; text-align: center;">
@@ -112,7 +112,7 @@ export async function POST(request) {
       to: process.env.RECEIVER_EMAIL || process.env.EMAIL_USER,
       subject: `🚨 New Plant Order from ${formData.name} (${formData.city})`,
       html: emailHtml,
-      attachments: attachments // Injects inline embedded images securely
+      attachments: attachments
     });
 
     return NextResponse.json({ success: true });
