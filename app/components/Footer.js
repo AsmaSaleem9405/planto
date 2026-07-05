@@ -83,7 +83,7 @@ export default function Footer() {
 
               <li>
                 <Link
-                  href="/#home"
+                  href="/"
                   className="hover:text-green-400 duration-300"
                 >
                   Home
@@ -92,16 +92,38 @@ export default function Footer() {
 
               <li>
                 <Link
-                  href="/plants"
+                  href="/#plants"
                   className="hover:text-green-400 duration-300"
                 >
                   Types Of Plants
                 </Link>
               </li>
+              <li>
+                
+                <Link
+                  href="/#bestplants"
+                  className="hover:text-green-400 duration-300"
+                >
+                  Best Plants
+                </Link>
+              </li>
+               <li>
+                
+                <Link
+                  href="/#review"
+                  className="hover:text-green-400 duration-300"
+                >
+                  Testimonials
+                </Link>
+              </li>
+              
+ 
+              
 
               <li>
+
                 <Link
-                  href="/contact"
+                  href="/#contact"
                   className="hover:text-green-400 duration-300"
                 >
                   Contact

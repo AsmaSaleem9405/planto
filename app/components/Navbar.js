@@ -219,24 +219,24 @@ export default function Navbar() {
                   </div>
                 )}
               </div>
-
+<Link 
+                href="#bestplants" 
+                className={`transition duration-300 ${
+                  activeSection === "bestplants" ? activeGlow : hoverGlow
+                }`}
+              >
+                Best Plants
+              </Link>
               <Link 
                 href="#review" 
                 className={`transition duration-300 ${
                   activeSection === "review" ? activeGlow : hoverGlow
                 }`}
               >
-                Reviews
+                Testimonials
               </Link>
 
-              <Link 
-                href="#bestplants" 
-                className={`transition duration-300 ${
-                  activeSection === "bestplants" ? activeGlow : hoverGlow
-                }`}
-              >
-                More
-              </Link>
+              
               <Link 
                 href="#contact" 
                 className={`transition duration-300 ${
