@@ -98,7 +98,7 @@ export default function ContactPage() {
   };
 
   return (
-    <main
+    <main id="contact"
       className="min-h-screen flex flex-col justify-center bg-cover bg-center bg-no-repeat text-white relative overflow-hidden"
       style={{
         backgroundImage: "url('/images/bg-1.webp')",

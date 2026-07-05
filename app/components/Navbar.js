@@ -12,7 +12,6 @@ import {
   FiChevronDown,
 } from "react-icons/fi";
 
-// The 12 Top Selling Plants
 const topSellingPlants = [
   { id: 1, name: "Hosta Plant" },
   { id: 2, name: "Haworthia Succulent" },
@@ -29,13 +28,47 @@ const topSellingPlants = [
 ];
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false); // Mobile menu state
-  const [dropdownOpen, setDropdownOpen] = useState(false); // Desktop dropdown state
-  const dropdownRef = useRef(null);
+  const [open, setOpen] = useState(false); 
+  const [dropdownOpen, setDropdownOpen] = useState(false); 
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false); 
+  const [activeSection, setActiveSection] = useState("home"); 
 
-  // Read URL params
+  const dropdownRef = useRef(null);
   const searchParams = useSearchParams();
   const activePlantId = searchParams.get("id");
+
+  // --- Real-time Scroll Spy Highlighting Engine ---
+  useEffect(() => {
+    const sectionIds = ["home", "plants", "review", "bestplants", "contact"];
+    
+    const observerOptions = {
+      root: null,
+      rootMargin: "-40% 0px -50% 0px", 
+      threshold: 0,
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    sectionIds.forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    return () => {
+      sectionIds.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) observer.unobserve(element);
+      });
+    };
+  }, []);
 
   // Close desktop dropdown if clicking outside
   useEffect(() => {
@@ -48,68 +81,86 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Prevent body scroll when mobile menu is open
+  // Prevent background scroll when mobile sidebar is open
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
+    document.body.style.overflow = open ? "hidden" : "auto";
     return () => {
       document.body.style.overflow = "auto";
     };
   }, [open]);
 
+  // Glow classes utility
+  const activeGlow = "text-emerald-400 font-semibold drop-shadow-[0_0_10px_rgba(52,211,153,0.6)]";
+  const hoverGlow = "text-gray-300 hover:text-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]";
+
   return (
     <>
-      <header className="fixed top-0 left-0 w-full z-50 bg-black/10 backdrop-blur-md border-b border-white/5">
+      <header className="fixed top-0 left-0 w-full z-50 bg-black/10 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
         <div className="max-w-7xl mx-auto px-5 lg:px-10">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <Link href="#home" className="flex items-center gap-2">
+            <Link href="#home" className="flex items-center gap-2 group">
               <Image
                 src="/icons/logo.webp"
                 alt="Planto"
                 width={42}
                 height={42}
-                className="object-contain"
+                className="object-contain group-hover:scale-105 group-hover:drop-shadow-[0_0_10px_rgba(52,211,153,0.6)] transition duration-300"
               />
-              <span className="text-white text-xl font-bold">Planto.</span>
+              <span className="text-white text-xl font-bold tracking-wide group-hover:text-emerald-400 transition duration-300">Planto.</span>
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-10">
-              <Link href="#home" className="text-gray-300 hover:text-green-400 transition duration-300">
+            <nav className="hidden lg:flex items-center gap-8">
+              <Link 
+                href="#home" 
+                className={`transition duration-300 ${
+                  activeSection === "home" ? activeGlow : hoverGlow
+                }`}
+              >
                 Home
               </Link>
 
-              {/* Plants Dropdown Trigger */}
-              <div className="relative" ref={dropdownRef}>
+              {/* Desktop Dropdown Container */}
+              <div 
+                className="relative flex items-center gap-1" 
+                ref={dropdownRef}
+                onMouseEnter={() => setDropdownOpen(true)}
+                onMouseLeave={() => setDropdownOpen(false)}
+              >
+                {/* FIXED: The main link highlights ONLY if we are actively viewing the "plants" section */}
+                   <Link 
+                href="#plants" 
+                className={`transition duration-300 ${
+                  activeSection === "plants" ? activeGlow : hoverGlow
+                }`}
+              >
+               Plant Types
+              </Link>
                 <button
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className={`flex items-center gap-1 transition duration-300 ${
-                    activePlantId ? "text-emerald-400 font-medium" : "text-gray-300 hover:text-green-400"
-                  }`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setDropdownOpen(!dropdownOpen);
+                  }}
+                  className="text-gray-400 hover:text-emerald-400 p-1 transition duration-200 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]"
                 >
-                  Top Selling Plants
-                  <FiChevronDown className={`transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`} />
+                  <FiChevronDown className={`transition-transform duration-300 ${dropdownOpen ? "rotate-180 text-emerald-400" : ""}`} />
                 </button>
 
-                {/* Dropdown Menu */}
                 {dropdownOpen && (
-                  <div className="absolute top-full left-0 mt-3 w-64 bg-black/95 border border-white/10 rounded-xl shadow-xl p-2 grid grid-cols-1 gap-1 z-50 max-h-96 overflow-y-auto backdrop-blur-xl">
+                  <div className="absolute top-full left-0 mt-2 w-64 bg-black/90 border border-white/10 rounded-xl shadow-2xl p-2 grid grid-cols-1 gap-1 z-50 backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200">
                     {topSellingPlants.map((plant) => {
-                      const isActive = activePlantId === String(plant.id);
+                      {/* FIXED: Sub-item highlights ONLY if its ID matches AND we are in the plants section */}
+                      const isSubItemActive = activeSection === "plants" && activePlantId === String(plant.id);
                       return (
                         <Link
                           key={plant.id}
-                          // This routes directly on the main page layout, setting the ID parameter and sliding to your component target section
                           href={`/?id=${plant.id}#plants`} 
                           onClick={() => setDropdownOpen(false)}
-                          className={`px-4 py-2 rounded-lg text-sm transition duration-200 ${
-                            isActive
-                              ? "bg-emerald-500/20 text-emerald-400 font-semibold border-l-4 border-emerald-400 pl-3"
-                              : "text-gray-300 hover:bg-white/5 hover:text-white"
+                          className={`px-4 py-2.5 rounded-lg text-sm transition-all duration-200 ${
+                            isSubItemActive
+                              ? "bg-emerald-500/20 text-emerald-400 font-semibold border-l-4 border-emerald-400 pl-3 drop-shadow-[0_0_6px_rgba(52,211,153,0.4)]"
+                              : "text-gray-300 hover:bg-emerald-500/10 hover:text-emerald-300 hover:pl-5"
                           }`}
                         >
                           {plant.name}
@@ -120,85 +171,143 @@ export default function Navbar() {
                 )}
               </div>
 
-              <Link href="#bestplants" className="text-gray-300 hover:text-green-400 transition duration-300">
+              <Link 
+                href="#review" 
+                className={`transition duration-300 ${
+                  activeSection === "review" ? activeGlow : hoverGlow
+                }`}
+              >
+               Reviews
+              </Link>
+
+              <Link 
+                href="#bestplants" 
+                className={`transition duration-300 ${
+                  activeSection === "bestplants" ? activeGlow : hoverGlow
+                }`}
+              >
                 More
               </Link>
-              <Link href="#" className="text-gray-300 hover:text-green-400 transition duration-300">
+              <Link 
+                href="#contact" 
+                className={`transition duration-300 ${
+                  activeSection === "contact" ? activeGlow : hoverGlow
+                }`}
+              >
                 Contact
               </Link>
             </nav>
 
-            {/* Desktop Icons */}
+            {/* Icons */}
             <div className="hidden lg:flex items-center gap-5">
-              <button className="text-white hover:text-green-400 transition">
+              <button className="text-white hover:text-emerald-400 transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.7)] duration-200">
                 <FiSearch size={22} />
               </button>
-              <button className="text-white hover:text-green-400 transition">
+              <button className="text-white hover:text-emerald-400 transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.7)] duration-200">
                 <FiShoppingBag size={22} />
               </button>
             </div>
 
-            {/* Mobile Menu Button */}
-            <button onClick={() => setOpen(!open)} className="lg:hidden text-white z-[60]">
-              {open ? <FiX size={30} /> : <FiMenu size={30} />}
+            {/* Mobile Menu Action Icon */}
+            <button onClick={() => setOpen(!open)} className="lg:hidden text-white z-[60] p-1 hover:text-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.7)] transition">
+              {open ? <FiX size={28} /> : <FiMenu size={28} />}
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Drawer Overlay */}
       <div className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${open ? "opacity-100 visible" : "opacity-0 invisible"}`}>
-        {/* Background Overlay */}
         <div className="absolute inset-0 bg-black/70 backdrop-blur-md" onClick={() => setOpen(false)}></div>
 
-        {/* Menu Container */}
-        <div className="relative mt-20 mx-4 rounded-2xl bg-black/95 border border-white/10 shadow-2xl p-6 max-h-[80vh] overflow-y-auto">
+        {/* Content Box Menu */}
+        <div className="relative mt-24 mx-4 rounded-2xl bg-black/90 border border-white/10 shadow-2xl p-6 backdrop-blur-xl">
           <nav className="flex flex-col gap-5">
-            <Link href="/" onClick={() => setOpen(false)} className="text-white text-lg hover:text-green-400 transition">
+            <Link 
+              href="#home" 
+              onClick={() => setOpen(false)} 
+              className={`text-lg transition ${activeSection === "home" ? "text-emerald-400 font-bold drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]" : "text-white hover:text-emerald-400"}`}
+            >
               Home
             </Link>
 
-            {/* Mobile Plant Accordion Section */}
+            {/* Mobile Dropdown Element */}
             <div className="flex flex-col gap-2">
-              <span className="text-gray-400 text-sm font-semibold uppercase tracking-wider">Plant Types</span>
-              <div className="pl-3 border-l border-white/10 flex flex-col gap-3 mt-1">
-                {topSellingPlants.map((plant) => {
-                  const isActive = activePlantId === String(plant.id);
-                  return (
-                    <Link
-                      key={plant.id}
-                      href={`/?id=${plant.id}#plants`}
-                      onClick={() => setOpen(false)}
-                      className={`text-base transition ${
-                        isActive ? "text-emerald-400 font-bold" : "text-gray-300 hover:text-white"
-                      }`}
-                    >
-                      {plant.name}
-                    </Link>
-                  );
-                })}
+              <div className="flex items-center justify-between w-full">
+                {/* FIXED: Mobile parent link condition adjusted */}
+                <Link
+                  href="#plants"
+                  onClick={() => setOpen(false)}
+                  className={`text-lg transition ${
+                    activeSection === "plants" ? "text-emerald-400 font-bold drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]" : "text-white hover:text-emerald-400"
+                  }`}
+                >
+                  Top Selling Plants
+                </Link>
+                <button 
+                  onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+                  className="text-white p-2 hover:text-emerald-400 transition"
+                >
+                  <FiChevronDown size={20} className={`transition-transform duration-300 ${mobileDropdownOpen ? "rotate-180 text-emerald-400" : ""}`} />
+                </button>
               </div>
+
+              {mobileDropdownOpen && (
+                <div className="pl-3 border-l border-white/10 flex flex-col gap-2.5 mt-1 animate-in fade-in slide-in-from-top-1 duration-200">
+                  {topSellingPlants.map((plant) => {
+                    {/* FIXED: Mobile sub-item condition adjusted */}
+                    const isSubItemActive = activeSection === "plants" && activePlantId === String(plant.id);
+                    return (
+                      <Link
+                        key={plant.id}
+                        href={`/?id=${plant.id}#plants`}
+                        onClick={() => setOpen(false)}
+                        className={`text-sm transition-all duration-200 ${
+                          isSubItemActive ? "text-emerald-400 font-bold pl-1 drop-shadow-[0_0_6px_rgba(52,211,153,0.4)]" : "text-gray-400 hover:text-emerald-300 hover:pl-2"
+                        }`}
+                      >
+                        {plant.name}
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
-            <Link href="#" onClick={() => setOpen(false)} className="text-white text-lg hover:text-green-400 transition">
+             <Link 
+              href="#review" 
+              onClick={() => setOpen(false)} 
+              className={`text-lg transition ${activeSection === "review" ? "text-emerald-400 font-bold drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]" : "text-white hover:text-emerald-400"}`}
+            >
+              Reviews
+            </Link>
+
+            <Link 
+              href="#bestplants" 
+              onClick={() => setOpen(false)} 
+              className={`text-lg transition ${activeSection === "bestplants" ? "text-emerald-400 font-bold drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]" : "text-white hover:text-emerald-400"}`}
+            >
               More
             </Link>
-            <Link href="#" onClick={() => setOpen(false)} className="text-white text-lg hover:text-green-400 transition">
+            <Link 
+              href="#contact" 
+              onClick={() => setOpen(false)} 
+              className={`text-lg transition ${activeSection === "contact" ? "text-emerald-400 font-bold drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]" : "text-white hover:text-emerald-400"}`}
+            >
               Contact
             </Link>
           </nav>
 
-          <div className="border-t border-gray-700 my-6" />
+          <div className="border-t border-white/10 my-5" />
 
-          {/* Icons */}
           <div className="flex flex-col gap-4">
-            <button className="flex items-center gap-3 text-white hover:text-green-400 transition">
-              <FiSearch size={22} />
-              <span>Search</span>
+            <button className="flex items-center gap-3 text-white hover:text-emerald-400 group transition">
+              <FiSearch size={20} className="group-hover:drop-shadow-[0_0_6px_rgba(52,211,153,0.6)]" />
+              <span className="text-sm">Search Catalog</span>
             </button>
-            <button className="flex items-center gap-3 text-white hover:text-green-400 transition">
-              <FiShoppingBag size={22} />
-              <span>Cart</span>
+            <button className="flex items-center gap-3 text-white hover:text-emerald-400 group transition">
+              <FiShoppingBag size={20} className="group-hover:drop-shadow-[0_0_6px_rgba(52,211,153,0.6)]" />
+              <span className="text-sm">View Cart</span>
             </button>
           </div>
         </div>
