@@ -15,7 +15,7 @@ export default function CartDrawer() {
     discountAmount,
     grandTotal,
     setDiscountApplied,
-    clearCart,
+    // clearCart is no longer invoked here so the items stay safe!
   } = useCart();
 
   // Navigation steps: 'cart' | 'checkout' | 'success'
@@ -62,8 +62,8 @@ export default function CartDrawer() {
       const result = await response.json();
 
       if (result.success) {
+        // Switch to success view without erasing the cart items context
         setStep("success");
-        if (clearCart) clearCart();
       } else {
         alert("Something went wrong processing your order. Please try again.");
       }
