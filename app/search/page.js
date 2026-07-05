@@ -17,19 +17,16 @@ const siteContent = [
   { id: 10, name: "Pothos", type: "Plant", link: "/?id=10#plants" },
   { id: 11, name: "Spider Plant", type: "Plant", link: "/?id=11#plants" },
   { id: 12, name: "Boston Fern", type: "Plant", link: "/?id=12#plants" },
-  // You can easily add non-plant content here:
   { id: 101, name: "Customer Reviews & Testimonials", type: "Page", link: "/#review" },
   { id: 102, name: "Contact Planto Support", type: "Page", link: "/#contact" },
   { id: 103, name: "Best Selling Collections", type: "Page", link: "/#plants" },
-    { id: 104, name: "Home", type: "Page", link: "/#home" },
-
+  { id: 104, name: "Home", type: "Page", link: "/#home" },
 ];
 
-export default function SearchPage() {
+export default function SearchContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
 
-  // Filter EVERYTHING on the website based on the query
   const results = siteContent.filter((item) =>
     item.name.toLowerCase().includes(query.toLowerCase())
   );
@@ -37,8 +34,9 @@ export default function SearchPage() {
   return (
     <div className="min-h-screen bg-neutral-950 text-white pt-32 px-5 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-2">
-        Search : <span className="text-emerald-400">"{query}"</span>
+        Search: <span className="text-emerald-400">"{query}"</span>
       </h1>
+
       <p className="text-gray-400 mb-8">
         Found {results.length} matching items across the website.
       </p>
@@ -49,27 +47,33 @@ export default function SearchPage() {
             <Link
               key={`${item.type}-${item.id}`}
               href={item.link}
-              className="p-4 bg-white/5 border border-white/10 rounded-xl hover:border-emerald-500/50 hover:bg-emerald-500/5 transition duration-200 block"
+              className="block rounded-xl border border-white/10 bg-white/5 p-4 transition duration-200 hover:border-emerald-500/50 hover:bg-emerald-500/5"
             >
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-lg font-semibold text-white group-hover:text-emerald-400">
-                    {item.name}
-                  </h2>
-                  <span className="text-xs text-gray-400 uppercase tracking-wider">
+                  <h2 className="text-lg font-semibold">{item.name}</h2>
+
+                  <span className="text-xs uppercase tracking-wider text-gray-400">
                     Location: {item.type}
                   </span>
                 </div>
-                <span className="text-emerald-400 text-sm font-medium">
-                  Go to page &rarr;
+
+                <span className="text-sm font-medium text-emerald-400">
+                  Go to page →
                 </span>
               </div>
             </Link>
           ))
         ) : (
-          <div className="text-center py-12 bg-white/5 rounded-xl border border-white/5">
-            <p className="text-gray-400">No results found for your search.</p>
-            <Link href="/" className="text-emerald-400 hover:underline mt-4 inline-block text-sm">
+          <div className="rounded-xl border border-white/5 bg-white/5 py-12 text-center">
+            <p className="text-gray-400">
+              No results found for your search.
+            </p>
+
+            <Link
+              href="/"
+              className="mt-4 inline-block text-sm text-emerald-400 hover:underline"
+            >
               Back to Home
             </Link>
           </div>
