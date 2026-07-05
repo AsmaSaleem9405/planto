@@ -330,22 +330,22 @@ export default function Navbar() {
                 </div>
               )}
             </div>
-
+  <Link 
+              href="#bestplants" 
+              onClick={() => setOpen(false)} 
+              className={`text-lg transition ${activeSection === "bestplants" ? "text-emerald-400 font-bold drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]" : "text-white hover:text-emerald-400"}`}
+            >
+              Best Plants
+            </Link>
             <Link 
               href="#review" 
               onClick={() => setOpen(false)} 
               className={`text-lg transition ${activeSection === "review" ? "text-emerald-400 font-bold drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]" : "text-white hover:text-emerald-400"}`}
             >
-              Reviews
+              Testimonials
             </Link>
 
-            <Link 
-              href="#bestplants" 
-              onClick={() => setOpen(false)} 
-              className={`text-lg transition ${activeSection === "bestplants" ? "text-emerald-400 font-bold drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]" : "text-white hover:text-emerald-400"}`}
-            >
-              More
-            </Link>
+          
             <Link 
               href="#contact" 
               onClick={() => setOpen(false)} 
