@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 
 
+
 const TopSelling = dynamic(() => import("@/app/components/top-selling"), {
   loading: () => <p>Loading...</p>,
 });
@@ -21,6 +22,9 @@ const Footer = dynamic(() => import("@/app/components/Footer"), {
   loading: () => <p>Loading...</p>,
 });
 
+const Contact = dynamic(() => import("@/app/components/Contact"), {
+  loading: () => <p>Loading...</p>,
+});
 
 export default function Home() {
   return (
@@ -30,6 +34,7 @@ export default function Home() {
       <TopSelling />
       <Reviews />
         <BestPlants />
+      <Contact />
         <Footer />
     </main>
   );
