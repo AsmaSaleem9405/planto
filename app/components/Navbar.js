@@ -141,9 +141,10 @@ export default function Navbar() {
     <>
       <header className="fixed top-0 left-0 w-full z-50 bg-black/10 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
         <div className="max-w-7xl mx-auto px-5 lg:px-10">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo */}
-            <Link href="#home" className="flex items-center gap-2 group">
+          <div className="relative flex items-center justify-between h-16 md:h-20">
+            
+            {/* Logo - Hidden when search is active on mobile to prevent overlapping */}
+            <Link href="#home" className={`flex items-center gap-2 group transition-opacity duration-200 ${showSearchInput ? "max-sm:opacity-0 max-sm:pointer-events-none" : "opacity-100"}`}>
               <Image
                 src="/icons/logo.webp"
                 alt="Planto"
@@ -215,24 +216,27 @@ export default function Navbar() {
             </nav>
 
             {/* Right-aligned Header Elements (Icons & Mobile Trigger) */}
-            <div className="flex items-center gap-4 lg:gap-5">
+            <div className={`flex items-center gap-4 lg:gap-5 transition-all duration-300 ${showSearchInput ? "max-sm:absolute max-sm:left-0 max-sm:right-0 max-sm:w-full max-sm:justify-between" : ""}`}>
               
               {/* Dynamic Search Box (Desktop & Mobile) */}
               {showSearchInput ? (
-                <form onSubmit={handleSearchSubmit} className="flex items-center bg-white/10 border border-white/20 rounded-full px-3 py-1 animate-in fade-in zoom-in-95 duration-200 max-w-[180px] sm:max-w-none">
+                <form 
+                  onSubmit={handleSearchSubmit} 
+                  className="flex items-center bg-white/10 border border-white/20 rounded-full px-4 py-1.5 animate-in fade-in zoom-in-95 duration-200 w-full sm:max-w-none max-sm:mx-1"
+                >
                   <input
                     ref={searchInputRef}
                     type="text"
                     placeholder="Search plants..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="bg-transparent text-white text-sm outline-none placeholder-gray-400 w-24 sm:w-40 focus:w-32 sm:focus:w-56 transition-all duration-300"
+                    className="bg-transparent text-white text-sm outline-none placeholder-gray-400 flex-1 sm:w-40 sm:focus:w-56 transition-all duration-300"
                   />
                   <button type="submit" className="text-emerald-400 ml-1">
                     <FiSearch size={16} />
                   </button>
-                  <button type="button" onClick={() => setShowSearchInput(false)} className="text-gray-400 hover:text-white ml-2 text-xs">
-                    <FiX size={14} />
+                  <button type="button" onClick={() => setShowSearchInput(false)} className="text-gray-400 hover:text-white ml-2">
+                    <FiX size={16} />
                   </button>
                 </form>
               ) : (
@@ -244,23 +248,27 @@ export default function Navbar() {
                 </button>
               )}
               
-              {/* Shopping Bag Trigger (Desktop & Mobile) */}
-              <button 
-                onClick={() => setIsCartOpen(true)}
-                className="relative text-white hover:text-emerald-400 transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.7)] duration-200"
-              >
-                <FiShoppingBag size={22} />
-                {totalItems > 0 && (
-                  <span className="absolute -top-1.5 -right-2 bg-emerald-500 text-neutral-900 text-[10px] font-bold rounded-full min-w-[16px] h-4 px-1 flex items-center justify-center animate-pulse">
-                    {totalItems}
-                  </span>
-                )}
-              </button>
+              {/* Shopping Bag & Menu - Hidden on tiny mobile views ONLY when search expands over everything */}
+              <div className={`flex items-center gap-4 ${showSearchInput ? "max-sm:hidden" : "flex"}`}>
+                {/* Shopping Bag Trigger */}
+                <button 
+                  onClick={() => setIsCartOpen(true)}
+                  className="relative text-white hover:text-emerald-400 transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.7)] duration-200"
+                >
+                  <FiShoppingBag size={22} />
+                  {totalItems > 0 && (
+                    <span className="absolute -top-1.5 -right-2 bg-emerald-500 text-neutral-900 text-[10px] font-bold rounded-full min-w-[16px] h-4 px-1 flex items-center justify-center animate-pulse">
+                      {totalItems}
+                    </span>
+                  )}
+                </button>
 
-              {/* Mobile Menu Action Icon */}
-              <button onClick={() => setOpen(!open)} className="lg:hidden text-white z-[60] p-1 hover:text-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.7)] transition">
-                {open ? <FiX size={28} /> : <FiMenu size={28} />}
-              </button>
+                {/* Mobile Menu Action Icon */}
+                <button onClick={() => setOpen(!open)} className="lg:hidden text-white z-[60] p-1 hover:text-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.7)] transition">
+                  {open ? <FiX size={28} /> : <FiMenu size={28} />}
+                </button>
+              </div>
+
             </div>
 
           </div>

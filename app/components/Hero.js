@@ -100,16 +100,16 @@ export default function Hero() {
               </div>
 
               {/* Review Card */}
-              <div className="mt-12 lg:mt-16 bg-white/10 backdrop-blur-md rounded-2xl p-4 max-w-sm border border-white/20">
+              <div className="mt-12 lg:mt-16 bg-white/10 backdrop-blur-md rounded-4xl p-4 max-w-sm border border-white/20">
                 <div className="flex items-center gap-4">
-                  <Image
-                    src="/images/customer 1.webp"
-                    alt="Customer"
-                    width={56}
-                    height={56}
-                    priority // Performance Fix: Above the fold image loaded instantly
-                    className="w-14 h-14 rounded-full object-cover flex-shrink-0"
-                  />
+                 <Image
+  src="/images/customer 1.webp"
+  alt="Customer"
+  width={56}
+  height={56}
+  priority
+  className="rounded-full object-cover aspect-square"
+/>
 
                   <div className="flex flex-col justify-center">
                     <div className="flex items-center text-yellow-400 mb-1">
