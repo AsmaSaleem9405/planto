@@ -116,16 +116,17 @@ export default function Testimonials() {
         variants={scrollFadeUpVariants}
         className="relative mb-24 z-10 will-change-transform"
       >
-        <div className="absolute -inset-x-4 -inset-y-2 border-t border-b border-l border-green-400/30 rounded-l-xl pointer-events-none"></div>
-        <div className="absolute -inset-x-4 -inset-y-2 border-t border-b border-r border-green-400/30 rounded-r-xl pointer-events-none"></div>
         
         {/* Glowing border accents simulating the UI frame */}
-        <div className="absolute top-[-8px] right-[-16px] w-6 h-6 border-t-2 border-r-2 border-green-400 rounded-tr-md"></div>
-        <div className="absolute bottom-[-8px] left-[-16px] w-6 h-6 border-b-2 border-l-2 border-green-400 rounded-bl-md"></div>
+<div className="flex items-center justify-center gap-5">
+  <span className="w-14 md:w-20 h-[2px] bg-green-400 rounded-full"></span>
 
-        <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-wide px-6 py-1 text-center font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-          Customer Review
-        </h2>
+  <h2 className="text-3xl md:text-4xl font-semibold tracking-wide text-white">
+    Customer Reviews
+  </h2>
+
+  <span className="w-14 md:w-20 h-[2px] bg-green-400 rounded-full"></span>
+</div>
       </motion.div>
 
       {/* Carousel Container - Animates on Scroll Up/Down */}

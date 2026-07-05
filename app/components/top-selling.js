@@ -284,15 +284,15 @@ export default function TopSelling2() {
           />
         </div>
 
-        <header className="relative z-10 mb-24 mt-8 text-center">
-          <div className="inline-block border-t-2 border-b-2 border-l-2 border-emerald-500/50 rounded-tl-xl rounded-bl-xl px-6 py-2 border-r-2 border-r-transparent relative">
-            <div className="absolute top-0 right-0 h-full w-2 border-t-2 border-b-2 border-r-2 border-emerald-500/50 rounded-tr-xl rounded-br-xl -mr-2"></div>
-            <h1 className="text-2xl md:text-3xl font-bold tracking-wide text-white drop-shadow">
-              Browse Our Plants
-            </h1>
-          </div>
-        </header>
-
+  <header className="relative z-10 mb-24 mt-8 text-center">
+  <div className="inline-block rounded-2xl border border-emerald-500/40 p-1">
+    <div className="rounded-xl border border-emerald-500/20 px-10 py-4 bg-black/20 backdrop-blur-sm">
+      <h1 className="text-2xl md:text-3xl font-bold tracking-wider text-white">
+        Browse Our Plants
+      </h1>
+    </div>
+  </div>
+</header>
         {/* 3x2 Grid Display */}
         <section className="relative z-10 w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-24 px-4">
           {currentPlants.map((plant, index) => {

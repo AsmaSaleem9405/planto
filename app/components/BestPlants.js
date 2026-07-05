@@ -62,15 +62,19 @@ export default function BestPlants() {
       <div className="max-w-7xl mx-auto px-5">
 
         {/* Heading */}
-        <div className="flex justify-center mb-10 md:mb-14">
-          <h2 className="relative text-white text-2xl md:text-4xl font-bold">
-            Our Best Plants
+       <div className="flex justify-center mb-10 md:mb-14">
+  <div className="relative inline-block px-8 py-4">
+    {/* Top Left */}
+    <span className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-lime-500 rounded-tl-lg"></span>
 
-            <span className="absolute -left-5 top-1 w-5 h-5 border-l-2 border-t-2 border-lime-500"></span>
+    {/* Bottom Right */}
+    <span className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-lime-500 rounded-br-lg"></span>
 
-            <span className="absolute -right-5 bottom-1 w-5 h-5 border-r-2 border-b-2 border-lime-500"></span>
-          </h2>
-        </div>
+    <h2 className="text-white text-2xl md:text-4xl font-bold tracking-wide">
+      Our Best Plants
+    </h2>
+  </div>
+</div>
 
         {/* Slider */}
         <div className="relative overflow-hidden rounded-[35px] border border-white/10">
