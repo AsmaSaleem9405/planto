@@ -114,12 +114,12 @@ export default function BestPlants() {
                     </div>
 
                     <div className="flex items-center justify-between mt-1 lg:mt-10">
-                   <Link
-  href="#plants"
-  className="inline-block h-[38px] px-6 rounded-md border border-white text-sm hover:bg-green-600 transition-all duration-300 leading-[38px] text-center"
->
-  Explore
+                  <Link href="/#plants">
+  <button className="border border-gray-500 rounded-md px-5 py-2 lg:px-8 lg:py-3 text-white text-sm hover:bg-lime-500 hover:border-lime-500 transition">
+    Explore
+  </button>
 </Link>
+
                       <div className="flex items-center gap-4 lg:gap-6">
                         <button
                           onClick={prevSlide}

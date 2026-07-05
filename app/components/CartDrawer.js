@@ -15,12 +15,13 @@ export default function CartDrawer() {
     discountAmount,
     grandTotal,
     setDiscountApplied,
-    clearCart, // Destructured assuming you might want to reset the cart on success
+    clearCart,
   } = useCart();
 
   // Navigation steps: 'cart' | 'checkout' | 'success'
   const [step, setStep] = useState("cart");
   const [coupon, setCoupon] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Form Details State
   const [formData, setFormData] = useState({
@@ -38,11 +39,40 @@ export default function CartDrawer() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handlePlaceOrder = (e) => {
+  const handlePlaceOrder = async (e) => {
     e.preventDefault();
-    // Execute backend tracking / API actions here if needed
-    setStep("success");
-    if (clearCart) clearCart();
+    setIsSubmitting(true);
+
+    try {
+      // Calls your server-side Next.js route securely
+      const response = await fetch("/api/order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          formData,
+          cart,
+          subTotal,
+          discountAmount,
+          grandTotal,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setStep("success");
+        if (clearCart) clearCart();
+      } else {
+        alert("Something went wrong processing your order. Please try again.");
+      }
+    } catch (error) {
+      console.error("Failed to place order:", error);
+      alert("Network error. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleClose = () => {
@@ -64,6 +94,7 @@ export default function CartDrawer() {
           <div className="flex items-center gap-3">
             {step === "checkout" && (
               <button 
+                type="button"
                 onClick={() => setStep("cart")} 
                 className="p-2 hover:bg-neutral-100 rounded-full transition-colors text-neutral-600"
               >
@@ -112,9 +143,9 @@ export default function CartDrawer() {
 
                     <div className="flex justify-center">
                       <div className="flex items-center border border-neutral-300 rounded-full px-3 py-1 gap-3 bg-neutral-50">
-                        <button onClick={() => updateQuantity(item.id, -1)} className="font-bold text-neutral-500 hover:text-black transition-colors">-</button>
+                        <button type="button" onClick={() => updateQuantity(item.id, -1)} className="font-bold text-neutral-500 hover:text-black transition-colors">-</button>
                         <span className="font-semibold text-sm w-4 text-center text-black">{item.quantity}</span>
-                        <button onClick={() => updateQuantity(item.id, 1)} className="font-bold text-neutral-500 hover:text-black transition-colors">+</button>
+                        <button type="button" onClick={() => updateQuantity(item.id, 1)} className="font-bold text-neutral-500 hover:text-black transition-colors">+</button>
                       </div>
                     </div>
 
@@ -122,7 +153,7 @@ export default function CartDrawer() {
                       <span className="font-bold text-black md:text-right w-full">
                         Rs. {item.numericPrice * item.quantity}/-
                       </span>
-                      <button onClick={() => removeFromCart(item.id)} className="text-neutral-400 hover:text-red-500 p-2 transition-colors">
+                      <button type="button" onClick={() => removeFromCart(item.id)} className="text-neutral-400 hover:text-red-500 p-2 transition-colors">
                         <FiTrash2 size={18} />
                       </button>
                     </div>
@@ -143,6 +174,7 @@ export default function CartDrawer() {
                     className="w-full bg-white border border-neutral-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-black"
                   />
                   <button 
+                    type="button"
                     onClick={() => coupon.toLowerCase() === "save10" && setDiscountApplied(true)}
                     className="bg-black hover:bg-neutral-800 text-white font-medium text-xs rounded-xl px-4 py-2 transition-colors"
                   >
@@ -173,6 +205,7 @@ export default function CartDrawer() {
                 </div>
 
                 <button 
+                  type="button"
                   onClick={() => setStep("checkout")}
                   className="w-full bg-black text-white py-3.5 rounded-full font-semibold text-center hover:bg-neutral-800 active:scale-95 transition-all shadow-lg"
                 >
@@ -301,9 +334,12 @@ export default function CartDrawer() {
 
               <button 
                 type="submit"
-                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-full font-bold text-center active:scale-98 transition-all shadow-md tracking-wide"
+                disabled={isSubmitting}
+                className={`w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-full font-bold text-center active:scale-98 transition-all shadow-md tracking-wide ${
+                  isSubmitting ? "opacity-60 cursor-not-allowed" : ""
+                }`}
               >
-                Place Order
+                {isSubmitting ? "Processing Order..." : "Place Order"}
               </button>
             </div>
 
@@ -330,6 +366,7 @@ export default function CartDrawer() {
             </div>
 
             <button 
+              type="button"
               onClick={handleClose}
               className="w-full bg-black text-white py-3.5 rounded-full font-bold hover:bg-neutral-800 transition-colors tracking-wide text-sm shadow-md"
             >
