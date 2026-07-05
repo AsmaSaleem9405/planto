@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
+import { useCart } from "@/app/context/CartContext";
+import CartDrawer from "./CartDrawer"; // Adjust path if needed depending on file location
 import {
   FiMenu,
   FiX,
@@ -28,6 +30,7 @@ const topSellingPlants = [
 ];
 
 export default function Navbar() {
+  const { totalItems, setIsCartOpen } = useCart();
   const [open, setOpen] = useState(false); 
   const [dropdownOpen, setDropdownOpen] = useState(false); 
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false); 
@@ -128,15 +131,14 @@ export default function Navbar() {
                 onMouseEnter={() => setDropdownOpen(true)}
                 onMouseLeave={() => setDropdownOpen(false)}
               >
-                {/* FIXED: The main link highlights ONLY if we are actively viewing the "plants" section */}
-                   <Link 
-                href="#plants" 
-                className={`transition duration-300 ${
-                  activeSection === "plants" ? activeGlow : hoverGlow
-                }`}
-              >
-               Plant Types
-              </Link>
+                <Link 
+                  href="#plants" 
+                  className={`transition duration-300 ${
+                    activeSection === "plants" ? activeGlow : hoverGlow
+                  }`}
+                >
+                  Plant Types
+                </Link>
                 <button
                   onClick={(e) => {
                     e.preventDefault();
@@ -150,7 +152,6 @@ export default function Navbar() {
                 {dropdownOpen && (
                   <div className="absolute top-full left-0 mt-2 w-64 bg-black/90 border border-white/10 rounded-xl shadow-2xl p-2 grid grid-cols-1 gap-1 z-50 backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200">
                     {topSellingPlants.map((plant) => {
-                      {/* FIXED: Sub-item highlights ONLY if its ID matches AND we are in the plants section */}
                       const isSubItemActive = activeSection === "plants" && activePlantId === String(plant.id);
                       return (
                         <Link
@@ -177,7 +178,7 @@ export default function Navbar() {
                   activeSection === "review" ? activeGlow : hoverGlow
                 }`}
               >
-               Reviews
+                Reviews
               </Link>
 
               <Link 
@@ -203,8 +204,18 @@ export default function Navbar() {
               <button className="text-white hover:text-emerald-400 transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.7)] duration-200">
                 <FiSearch size={22} />
               </button>
-              <button className="text-white hover:text-emerald-400 transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.7)] duration-200">
+              
+              {/* Interactive Bag Trigger layout element */}
+              <button 
+                onClick={() => setIsCartOpen(true)}
+                className="relative text-white hover:text-emerald-400 transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.7)] duration-200"
+              >
                 <FiShoppingBag size={22} />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1.5 -right-2 bg-emerald-500 text-neutral-900 text-[10px] font-bold rounded-full min-w-[16px] h-4 px-1 flex items-center justify-center animate-pulse">
+                    {totalItems}
+                  </span>
+                )}
               </button>
             </div>
 
@@ -234,7 +245,6 @@ export default function Navbar() {
             {/* Mobile Dropdown Element */}
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between w-full">
-                {/* FIXED: Mobile parent link condition adjusted */}
                 <Link
                   href="#plants"
                   onClick={() => setOpen(false)}
@@ -255,7 +265,6 @@ export default function Navbar() {
               {mobileDropdownOpen && (
                 <div className="pl-3 border-l border-white/10 flex flex-col gap-2.5 mt-1 animate-in fade-in slide-in-from-top-1 duration-200">
                   {topSellingPlants.map((plant) => {
-                    {/* FIXED: Mobile sub-item condition adjusted */}
                     const isSubItemActive = activeSection === "plants" && activePlantId === String(plant.id);
                     return (
                       <Link
@@ -274,7 +283,7 @@ export default function Navbar() {
               )}
             </div>
 
-             <Link 
+            <Link 
               href="#review" 
               onClick={() => setOpen(false)} 
               className={`text-lg transition ${activeSection === "review" ? "text-emerald-400 font-bold drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]" : "text-white hover:text-emerald-400"}`}
@@ -305,13 +314,27 @@ export default function Navbar() {
               <FiSearch size={20} className="group-hover:drop-shadow-[0_0_6px_rgba(52,211,153,0.6)]" />
               <span className="text-sm">Search Catalog</span>
             </button>
-            <button className="flex items-center gap-3 text-white hover:text-emerald-400 group transition">
+            <button 
+              onClick={() => {
+                setOpen(false);
+                setIsCartOpen(true);
+              }}
+              className="flex items-center gap-3 text-white hover:text-emerald-400 group transition relative"
+            >
               <FiShoppingBag size={20} className="group-hover:drop-shadow-[0_0_6px_rgba(52,211,153,0.6)]" />
               <span className="text-sm">View Cart</span>
+              {totalItems > 0 && (
+                <span className="bg-emerald-500 text-neutral-900 text-[10px] font-bold rounded-full min-w-[16px] h-4 px-1 flex items-center justify-center animate-pulse ml-1">
+                  {totalItems}
+                </span>
+              )}
             </button>
           </div>
         </div>
       </div>
+
+      {/* Render the drawer overlay component right below the navbar header layout */}
+      <CartDrawer />
     </>
   );
 }

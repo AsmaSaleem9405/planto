@@ -4,9 +4,11 @@ import Head from "next/head";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { FiShoppingBag } from "react-icons/fi";
-import { useSearchParams } from "next/navigation"; // Added to read Navbar clicks
+import { useSearchParams } from "next/navigation";
 
 import Navbar from "@/app/components/Navbar";
+import { useCart } from "@/app/context/CartContext"; // Wired to global cart state
+
 // Plant Data Array for PAGE 1 (IDs 1-6)
 const plantsDataPage1 = [
   {
@@ -125,6 +127,8 @@ const plantsDataPage2 = [
 
 // Reusable Plant Card Component
 const PlantCard = ({ plant, isPriority }) => {
+  const { addToCart } = useCart(); // Access cart action context
+
   const cardVariants = {
     hidden: { opacity: 0, y: 40 },
     visible: {
@@ -199,6 +203,7 @@ const PlantCard = ({ plant, isPriority }) => {
           {plant.price}
         </span>
         <button
+          onClick={() => addToCart(plant)} // Dynamic event handler click assignment
           aria-label={`Add ${plant.name} to cart`}
           className="p-2.5 rounded-xl border border-emerald-500/30 bg-[#121c14] text-zinc-300 hover:bg-emerald-500 hover:text-neutral-900 hover:border-emerald-400 transition-all duration-200 shadow-md transform active:scale-95"
         >
@@ -262,7 +267,7 @@ export default function TopSelling2() {
 
       <Navbar />
 
-     {/* Main Container attached with ID 'plants' matching navbar link hashes */}
+      {/* Main Container attached with ID 'plants' matching navbar link hashes */}
       <main 
         id="plants" 
         className="relative min-h-screen w-full flex flex-col justify-between items-center pt-24 pb-16 px-4 md:px-8 lg:px-16 overflow-hidden"
@@ -279,17 +284,17 @@ export default function TopSelling2() {
           />
         </div>
 
-       <header className="relative z-10 mb-24 mt-8 text-center">
+        <header className="relative z-10 mb-24 mt-8 text-center">
           <div className="inline-block border-t-2 border-b-2 border-l-2 border-emerald-500/50 rounded-tl-xl rounded-bl-xl px-6 py-2 border-r-2 border-r-transparent relative">
             <div className="absolute top-0 right-0 h-full w-2 border-t-2 border-b-2 border-r-2 border-emerald-500/50 rounded-tr-xl rounded-br-xl -mr-2"></div>
             <h1 className="text-2xl md:text-3xl font-bold tracking-wide text-white drop-shadow">
-             Browse Our Plants
+              Browse Our Plants
             </h1>
           </div>
         </header>
 
         {/* 3x2 Grid Display */}
-     <section className="relative z-10 w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-24 px-4">
+        <section className="relative z-10 w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-24 px-4">
           {currentPlants.map((plant, index) => {
             // Check if this specific card's ID matches the one clicked in Navbar
             const isHighlighted = String(plant.id) === selectedPlantId;
@@ -313,7 +318,7 @@ export default function TopSelling2() {
         </section>
 
         {/* Dynamic Pagination Panel Controls */}
-       <footer className="relative z-10 w-full max-w-[160px] flex gap-4 justify-between items-center mt-24 mx-auto">
+        <footer className="relative z-10 w-full max-w-[160px] flex gap-4 justify-between items-center mt-24 mx-auto">
           <button
             onClick={() => handlePageChange(1)}
             disabled={currentPage === 1}
