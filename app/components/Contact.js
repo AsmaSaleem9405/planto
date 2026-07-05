@@ -90,8 +90,12 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="bg-[#08130B] text-white min-h-screen flex flex-col justify-center">
-      
+   <main
+  className="min-h-screen flex flex-col justify-center bg-cover bg-center bg-no-repeat text-white"
+  style={{
+    backgroundImage: "url('/images/bg-1.webp')",
+  }}
+>
       {!showForm ? (
         <section className="relative overflow-hidden w-full py-28 text-center">
           <div className="absolute inset-0 bg-gradient-to-br from-green-900 via-[#0c2415] to-black opacity-95 -z-10" />
