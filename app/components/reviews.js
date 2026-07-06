@@ -244,9 +244,17 @@ const CardContent = memo(function CardContent({ review }) {
         </div>
         
         {/* Review Context Copy */}
-        <p className="text-gray-400/90 text-sm leading-relaxed font-light text-left">
-          {review.text}
-        </p>
+       <p
+  className="
+    text-gray-400/90
+    text-sm sm:text-base lg:text-lg
+    leading-6 sm:leading-7
+    font-light
+    text-left
+  "
+>
+  {review.text}
+</p>
       </div>
     </div>
   );

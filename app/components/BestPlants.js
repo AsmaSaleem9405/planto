@@ -112,9 +112,21 @@ export default function BestPlants() {
                       </h3>
 
                       {/* FIXED THE CUT-OFF TEXT: Allowed text block to scroll if it exceeds its height block on mobile */}
-                      <p className="text-gray-300 text-xs md:text-base leading-5 md:leading-8 mb-2 lg:mb-6 whitespace-pre-line max-h-[110px] lg:max-h-none overflow-y-auto pr-1 custom-scrollbar">
-                        {item.description}
-                      </p>
+                     <p
+  className="
+    text-gray-300
+    text-sm sm:text-base lg:text-lg
+    leading-6 sm:leading-7 lg:leading-8
+    mb-3 lg:mb-6
+    whitespace-pre-line
+    max-h-28 sm:max-h-32 lg:max-h-none
+    overflow-y-auto lg:overflow-visible
+    pr-1
+    custom-scrollbar
+  "
+>
+  {item.description}
+</p>
                     </div>
 
                     <div className="flex items-center justify-between mt-1 lg:mt-10">

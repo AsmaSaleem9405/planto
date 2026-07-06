@@ -135,11 +135,20 @@ export default function ContactPage() {
                 We'd Love To
                 <span className="text-green-400 block md:inline"> Hear From You</span>
               </h1>
-
-              <p className="max-w-3xl mx-auto mt-8 text-lg text-gray-300 leading-8">
-                Whether you have questions about your plants, your order, delivery across the United Kingdom, or simply need expert
-                plant care advice, our dedicated support team in London is always ready to help you.
-              </p>
+<p
+  className="
+    mx-auto
+    mt-6 md:mt-8
+    max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl
+    px-4 sm:px-6
+    text-center
+    text-base sm:text-lg lg:text-xl
+    leading-7 sm:leading-8
+    text-gray-300
+  "
+>
+  Whether you have questions about your plants, your order, delivery across the United Kingdom, or simply need expert plant care advice, our dedicated support team in London is always ready to help you.
+</p>
 
               <motion.button
                 onClick={() => setShowForm(true)}
