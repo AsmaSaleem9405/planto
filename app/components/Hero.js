@@ -85,18 +85,15 @@ export default function Hero() {
                 >
                   Explore Plants
                 </Link>
-                <button
-                  onClick={() =>
-                    window.open(
-                      "https://youtu.be/1zu7xjYD9sg?si=NFuc5v2H0SDBp8Yx",
-                      "_blank",
-                    )
-                  }
-                  className="flex items-center gap-3 border border-white px-6 py-4 rounded-full hover:bg-white hover:text-black transition"
-                >
-                  <FaPlay />
-                  Watch Video
-                </button>
+               <Link
+        href="/watch"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-3 border border-white px-6 py-4 rounded-full hover:bg-white hover:text-black transition transform hover:scale-105 active:scale-95"
+      >
+        <FaPlay className="text-sm" />
+        <span>Watch Video</span>
+      </Link>
               </div>
 
               {/* Review Card */}
