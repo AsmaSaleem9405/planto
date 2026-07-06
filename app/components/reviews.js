@@ -247,7 +247,7 @@ const CardContent = memo(function CardContent({ review }) {
        <p
   className="
     text-gray-400/90
-    text-sm sm:text-base lg:text-lg
+    text-sm sm:text-base lg:text-md
     leading-6 sm:leading-7
     font-light
     text-left

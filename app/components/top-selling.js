@@ -187,11 +187,16 @@ const PlantCard = ({ plant, isPriority }) => {
         </motion.p>
 
         <motion.p
-          variants={textVariants}
-          className="text-sm text-zinc-400 mb-4 leading-relaxed"
-        >
-          {plant.description}
-        </motion.p>
+  variants={textVariants}
+  className="
+    text-sm
+    text-zinc-400
+    leading-6 sm:leading-7
+    mb-4 lg:mb-6
+  "
+>
+  {plant.description}
+</motion.p>
       </div>
 
       {/* Pricing / CTA Row */}
