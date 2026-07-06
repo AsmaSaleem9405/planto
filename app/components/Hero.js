@@ -1,7 +1,6 @@
 "use client";
 import { FiShoppingBag } from "react-icons/fi";
-import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { FaPlay } from "react-icons/fa";
 import { IoStar } from "react-icons/io5";
@@ -28,9 +27,9 @@ export default function Hero() {
 
   const [current, setCurrent] = useState(0);
 
-  const nextPlant = () => {
+  const nextPlant = useCallback(() => {
     setCurrent((prev) => (prev + 1) % plants.length);
-  };
+  }, [plants.length]);
 
   useEffect(() => {
     const id = setInterval(nextPlant, 5000);
@@ -38,10 +37,10 @@ export default function Hero() {
   }, [nextPlant]);
 
   return (
-    /* SAFETY WRAPPER: Ensures no elements can leak off the screen horizontally */
+    /* SAFETY WRAPPER */
     <div className="w-full overflow-x-hidden relative">
       <section id="home" className="relative min-h-screen w-full overflow-x-hidden">
-        {/* Performance Fix: Optimized Next.js Background Image with high priority */}
+        {/* Background Image */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <Image
             src="/images/bg-plant.webp"
@@ -59,8 +58,8 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.1 }} // Performance Fix: once: true avoids continuous recalculation
-              transition={{ duration: 0.6, ease: "easeOut" }} // Performance Fix: Hardware-friendly duration
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
               className="text-white"
             >
               <p className="uppercase tracking-[6px] text-green-300 mb-4">
@@ -79,34 +78,36 @@ export default function Hero() {
               </p>
 
               <div className="flex flex-wrap gap-5 mt-10">
-                <Link
-                  href="/#plants"
+                {/* GLOBAL FIX: Changed to clean native anchor tag to isolate Next.js router from hash scroll breaking on refreshes */}
+                <a
+                  href="#plants"
                   className="inline-block bg-green-600 hover:bg-green-700 transition px-8 py-4 rounded-full font-semibold text-white"
                 >
                   Explore Plants
-                </Link>
-               <Link
-        href="/watch"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center gap-3 border border-white px-6 py-4 rounded-full hover:bg-white hover:text-black transition transform hover:scale-105 active:scale-95"
-      >
-        <FaPlay className="text-sm" />
-        <span>Watch Video</span>
-      </Link>
+                </a>
+                
+                <a
+                  href="/watch"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 border border-white px-6 py-4 rounded-full hover:bg-white hover:text-black transition transform hover:scale-105 active:scale-95"
+                >
+                  <FaPlay className="text-sm" />
+                  <span>Watch Video</span>
+                </a>
               </div>
 
               {/* Review Card */}
               <div className="mt-12 lg:mt-16 bg-white/10 backdrop-blur-md rounded-4xl p-4 max-w-sm border border-white/20">
                 <div className="flex items-center gap-4">
-                 <Image
-  src="/images/customer 1.webp"
-  alt="Customer"
-  width={56}
-  height={56}
-  priority
-  className="rounded-full object-cover aspect-square"
-/>
+                  <Image
+                    src="/images/customer 1.webp"
+                    alt="Customer"
+                    width={56}
+                    height={56}
+                    priority
+                    className="rounded-full object-cover aspect-square"
+                  />
 
                   <div className="flex flex-col justify-center">
                     <div className="flex items-center text-yellow-400 mb-1">
@@ -128,7 +129,6 @@ export default function Hero() {
             </motion.div>
 
             {/* Right Side */}
-            {/* SAFETY CONTAINER FOR THE ANIMATION SIDE OVERFLOW */}
             <div className="w-full overflow-hidden lg:overflow-visible">
               <motion.div
                 initial={{ opacity: 0, x: 100 }}
@@ -152,7 +152,7 @@ export default function Hero() {
                         alt={plants[current].title}
                         width={459}
                         height={459}
-                        priority // Performance Fix: Pre-renders the visible slide image
+                        priority
                         className="drop-shadow-2xl object-contain"
                       />
                     </motion.div>
@@ -183,11 +183,13 @@ export default function Hero() {
                     </span>
 
                     <div className="flex justify-left">
-                      <Link href="/#plants">
-                        <button className="px-8 py-2.5 border -ml-4 border-white rounded-xl text-white text-lg font-medium bg-transparent hover:bg-green-600 hover:border-green-600 transition-all duration-300">
-                          Buy Now
-                        </button>
-                      </Link>
+                      {/* GLOBAL FIX: Native link container for Buy Now */}
+                      <a 
+                        href="#plants"
+                        className="px-8 py-2.5 border -ml-4 border-white rounded-xl text-white text-lg font-medium bg-transparent hover:bg-green-600 hover:border-green-600 transition-all duration-300 inline-block text-center"
+                      >
+                        Buy Now
+                      </a>
                     </div>
                   </div>
 
@@ -231,7 +233,7 @@ export default function Hero() {
                   >
                     <Image
                       src="/images/plant4.webp"
-                      alt="Peace Lily Plant" // <-- Fixed (Matches client)
+                      alt="Peace Lily Plant" 
                       width={400}
                       height={400}
                       loading="lazy"
@@ -253,12 +255,13 @@ export default function Hero() {
                     <h4 className="text-[30px] font-semibold mt-4">Rs. 599/-</h4>
 
                     <div className="flex items-center gap-3 mt-4">
-                      <Link
+                      {/* GLOBAL FIX: Native link container for Card 1 Explore */}
+                      <a
                         href="#plants"
                         className="inline-block h-[38px] px-6 rounded-md border border-white text-sm hover:bg-green-600 transition-all duration-300 leading-[38px] text-center"
                       >
                         Explore
-                      </Link>
+                      </a>
 
                       <button
                         onClick={() =>
@@ -270,7 +273,7 @@ export default function Hero() {
                             image: "/images/plant4.webp",
                           })
                         }
-                        aria-label="Add Peace Lily to cart" // <-- Fixed (Matches client)
+                        aria-label="Add Peace Lily to cart" 
                         className="h-[38px] w-[38px] flex items-center justify-center rounded-md border border-white hover:bg-green-600 transition-all duration-300 active:scale-95 transform"
                       >
                         <FiShoppingBag size={15} />
@@ -283,20 +286,21 @@ export default function Hero() {
               {/* Second Card - Zebra Haworthia */}
               <div className="relative rounded-[50px] lg:rounded-[110px] border mt-12 lg:mt-18 border-white/10 bg-white/5 backdrop-blur-md overflow-hidden lg:overflow-visible">
                 <div className="flex flex-col lg:grid lg:grid-cols-2 lg:h-[320px]">
+                  
                   <motion.div
                     initial={{ opacity: 0, x: 100 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, amount: 0.1 }}
                     transition={{ type: "spring", stiffness: 60, damping: 25 }}
-                    className="relative flex justify-center items-center h-[250px] lg:hidden"
+                    className="relative flex justify-center items-center h-[250px] lg:h-auto order-first lg:order-last"
                   >
                     <Image
                       src="/images/plant6.webp"
-                      alt="Zebra Haworthia Plant" // <-- Fixed (Matches client)
+                      alt="Zebra Haworthia Plant" 
                       width={600}
                       height={460}
                       loading="lazy"
-                      className="w-[240px]"
+                      className="w-[240px] lg:w-auto lg:absolute lg:left-6 lg:-top-36 pointer-events-none"
                     />
                   </motion.div>
 
@@ -305,7 +309,7 @@ export default function Hero() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.1 }}
                     transition={{ delay: 0.1, duration: 0.5, ease: "easeOut" }}
-                    className="flex flex-col justify-center mt-4 text-white px-6 pb-8 lg:pl-40 lg:px-0"
+                    className="flex flex-col justify-center mt-4 text-white px-6 pb-8 lg:pl-40 lg:px-0 order-last lg:order-first"
                   >
                     <h3 className="text-[22px] font-medium">Zebra Haworthia</h3>
                     <p className="text-[11px] text-gray-300 mt-2 leading-5 max-w-[260px]">
@@ -314,12 +318,13 @@ export default function Hero() {
                     <h4 className="text-[30px] font-semibold mt-4">Rs. 579/-</h4>
 
                     <div className="flex items-center gap-3 mt-4">
-                      <Link
+                      {/* GLOBAL FIX: Native link container for Card 2 Explore */}
+                      <a
                         href="#plants"
                         className="inline-block h-[38px] px-6 rounded-md border border-white text-sm hover:bg-green-600 transition-all duration-300 leading-[38px] text-center"
                       >
                         Explore
-                      </Link>
+                      </a>
 
                       <button
                         onClick={() =>
@@ -331,7 +336,7 @@ export default function Hero() {
                             image: "/images/plant6.webp",
                           })
                         }
-                        aria-label="Add Zebra Haworthia to cart" // <-- Fixed (Matches client)
+                        aria-label="Add Zebra Haworthia to cart" 
                         className="h-[38px] w-[38px] flex items-center justify-center rounded-md border border-white hover:bg-green-600 transition-all duration-300 active:scale-95 transform"
                       >
                         <FiShoppingBag size={15} />
@@ -339,22 +344,6 @@ export default function Hero() {
                     </div>
                   </motion.div>
 
-                  <motion.div
-                    initial={{ opacity: 0, x: 100 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, amount: 0.1 }}
-                    transition={{ type: "spring", stiffness: 60, damping: 25 }}
-                    className="relative hidden lg:flex items-center justify-center"
-                  >
-                    <Image
-                      src="/images/plant6.webp"
-                      alt="Zebra Haworthia Plant" // <-- Fixed (Matches client)
-                      width={600}
-                      height={460}
-                      loading="lazy"
-                      className="absolute left-6 -top-36"
-                    />
-                  </motion.div>
                 </div>
               </div>
             </div>
