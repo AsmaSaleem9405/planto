@@ -1,10 +1,8 @@
 "use client";
-import Link from "next/link";
 
 import { useEffect, useState } from "react";
 
-const cards = 
- [
+const cards = [
   {
     id: 1,
     image: "/images/plant1.webp",
@@ -62,19 +60,19 @@ export default function BestPlants() {
       <div className="max-w-7xl mx-auto px-5">
 
         {/* Heading */}
-       <div className="flex justify-center mb-10 md:mb-14">
-  <div className="relative inline-block px-8 py-4">
-    {/* Top Left */}
-    <span className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-lime-500 rounded-tl-lg"></span>
+        <div className="flex justify-center mb-10 md:mb-14">
+          <div className="relative inline-block px-8 py-4">
+            {/* Top Left */}
+            <span className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-lime-500 rounded-tl-lg"></span>
 
-    {/* Bottom Right */}
-    <span className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-lime-500 rounded-br-lg"></span>
+            {/* Bottom Right */}
+            <span className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-lime-500 rounded-br-lg"></span>
 
-    <h2 className="text-white text-2xl md:text-4xl font-bold tracking-wide">
-      Our Best Plants
-    </h2>
-  </div>
-</div>
+            <h2 className="text-white text-2xl md:text-4xl font-bold tracking-wide">
+              Our Best Plants
+            </h2>
+          </div>
+        </div>
 
         {/* Slider */}
         <div className="relative overflow-hidden rounded-[35px] border border-white/10">
@@ -90,10 +88,9 @@ export default function BestPlants() {
                 key={item.id}
                 className="min-w-full bg-[#252d21] h-[430px]"
               >
-                {/* Structure completely unchanged - adjusted layout distribution */}
                 <div className="grid lg:grid-cols-[45%_55%] h-full items-center p-4 lg:p-0">
 
-                  {/* Left Image - Increased mobile height threshold */}
+                  {/* Left Image */}
                   <div className="flex justify-center items-end h-full max-h-[190px] lg:max-h-full">
                     <img
                       src={item.image}
@@ -111,30 +108,31 @@ export default function BestPlants() {
                         {item.title}
                       </h3>
 
-                      {/* FIXED THE CUT-OFF TEXT: Allowed text block to scroll if it exceeds its height block on mobile */}
-                     <p
-  className="
-    text-gray-300
-    text-sm sm:text-base lg:text-lg
-    leading-6 sm:leading-7 lg:leading-8
-    mb-3 lg:mb-6
-    whitespace-pre-line
-    max-h-28 sm:max-h-32 lg:max-h-none
-    overflow-y-auto lg:overflow-visible
-    pr-1
-    custom-scrollbar
-  "
->
-  {item.description}
-</p>
+                      <p
+                        className="
+                          text-gray-300
+                          text-sm sm:text-base lg:text-lg
+                          leading-6 sm:leading-7 lg:leading-8
+                          mb-3 lg:mb-6
+                          whitespace-pre-line
+                          max-h-28 sm:max-h-32 lg:max-h-none
+                          overflow-y-auto lg:overflow-visible
+                          pr-1
+                          custom-scrollbar
+                        "
+                      >
+                        {item.description}
+                      </p>
                     </div>
 
                     <div className="flex items-center justify-between mt-1 lg:mt-10">
-                  <Link href="/#plants">
-  <button className="border border-gray-500 rounded-md px-5 py-2 lg:px-8 lg:py-3 text-white text-sm hover:bg-lime-500 hover:border-lime-500 transition">
-    Explore
-  </button>
-</Link>
+                      {/* FIXED: Replaced Link + nested Button with a styled native Anchor element */}
+                      <a 
+                        href="#plants"
+                        className="inline-block text-center border border-gray-500 rounded-md px-5 py-2 lg:px-8 lg:py-3 text-white text-sm hover:bg-lime-500 hover:border-lime-500 transition"
+                      >
+                        Explore
+                      </a>
 
                       <div className="flex items-center gap-4 lg:gap-6">
                         <button

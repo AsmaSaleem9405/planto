@@ -62,7 +62,7 @@ export default function Footer() {
 
           {/* Logo Section */}
           <motion.div variants={fadeInUp} className="flex flex-col gap-4">
-            <Link href="#home" className="inline-flex items-center gap-3">
+            <a href="#home" className="inline-flex items-center gap-3">
               <Image
                 src="/icons/logo.webp"
                 alt="Planto Logo"
@@ -74,7 +74,7 @@ export default function Footer() {
               <span className="text-3xl font-bold pt-3 text-white tracking-wide">
                 Planto<span className="text-green-400">.</span>
               </span>
-            </Link>
+            </a>
 
             <p className="text-gray-300 leading-7 text-sm max-w-sm">
               We provide premium quality plants to make your
@@ -131,12 +131,12 @@ export default function Footer() {
             <ul className="space-y-4 text-gray-300">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <Link
+                  <a
                     href={link.href}
                     className="inline-block hover:text-green-400 transition-all duration-300 hover:translate-x-1 transform"
                   >
                     {link.name}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
