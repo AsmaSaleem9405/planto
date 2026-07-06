@@ -152,7 +152,7 @@ export default function Navbar() {
                 height={42}
                 className="object-contain group-hover:scale-105 group-hover:drop-shadow-[0_0_10px_rgba(52,211,153,0.6)] transition duration-300"
               />
-              <span className="text-white text-xl font-bold tracking-wide group-hover:text-emerald-400 transition duration-300">Planto.</span>
+              <span className="text-white text-xl font-bold tracking-wide group-hover:text-emerald-400 transition pt-2.5 duration-300">Planto.</span>
             </Link>
 
             {/* Desktop Navigation */}
