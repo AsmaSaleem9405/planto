@@ -128,7 +128,7 @@ export default function ContactPage() {
                 transition={{ delay: 0.2 }}
                 className="bg-green-600/20 border border-green-500 text-green-300 px-5 py-2 rounded-full text-sm uppercase tracking-widest inline-block"
               >
-                Contact Planto Pakistan
+                Contact Planto UK
               </motion.span>
 
               <h1 className="text-5xl md:text-6xl font-black mt-8 leading-tight tracking-tight">
@@ -137,8 +137,8 @@ export default function ContactPage() {
               </h1>
 
               <p className="max-w-3xl mx-auto mt-8 text-lg text-gray-300 leading-8">
-                Whether you have questions about your plants, your order, delivery across Pakistan, or simply need expert
-                plant care advice, our dedicated support team in Lahore is always ready to help you.
+                Whether you have questions about your plants, your order, delivery across the United Kingdom, or simply need expert
+                plant care advice, our dedicated support team in London is always ready to help you.
               </p>
 
               <motion.button
@@ -224,9 +224,9 @@ export default function ContactPage() {
                   }}
                 >
                   {[
-                    { label: "Full Name", name: "name", type: "input", placeholder: "John Doe" },
-                    { label: "Email Address", name: "email", type: "input", placeholder: "john@example.com", inputType: "email" },
-                    { label: "Phone Number", name: "phone", type: "input", placeholder: "+92 300 1234567" },
+                    { label: "Full Name", name: "name", type: "input", placeholder: "Jane Smith" },
+                    { label: "Email Address", name: "email", type: "input", placeholder: "jane@example.co.uk", inputType: "email" },
+                    { label: "Phone Number", name: "phone", type: "input", placeholder: "+44 20 7946 0192" },
                     { label: "Subject", name: "subject", type: "input", placeholder: "How can we help you?" },
                     { label: "Message", name: "message", type: "textarea", placeholder: "Tell us how we can help...", rows: 5 }
                   ].map((field) => (
@@ -302,10 +302,10 @@ export default function ContactPage() {
 
                   <div className="space-y-6">
                     {[
-                      { icon: Mail, title: "Email", value: "support@planto.pk" },
-                      { icon: Phone, title: "Phone", value: "+92 (42) 111-752-686" },
-                      { icon: MapPin, title: "Office", value: "Main Boulevard, Gulberg III", lines: ["Lahore, Punjab, Pakistan"] },
-                      { icon: Clock, title: "Working Hours", value: "Monday - Saturday", lines: ["9:00 AM - 6:00 PM (PKT)"] }
+                      { icon: Mail, title: "Email", value: "support@planto.co.uk" },
+                      { icon: Phone, title: "Phone", value: "+44 (0) 20 7946 0192" },
+                      { icon: MapPin, title: "Office", value: "30 Great Guildford Street", lines: ["London, SE1 0HS", "United Kingdom"] },
+                      { icon: Clock, title: "Working Hours", value: "Monday - Saturday", lines: ["9:00 AM - 6:00 PM (GMT/BST)"] }
                     ].map((item, index) => {
                       const Icon = item.icon;
                       return (
@@ -333,8 +333,8 @@ export default function ContactPage() {
                   className="overflow-hidden rounded-3xl border border-white/10 shadow-2xl group"
                 >
                   <iframe
-                    title="Google Map Lahore"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3401.3121516244434!2d74.34149027627448!3d31.515568147720935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3919045a16315ef9%3A0x63351336e9ff76d9!2sMain%20Blvd%20Gulberg%2C%20Gulberg%2C%20Lahore%2C%20Punjab!5e0!3m2!1sen!2spk!4v1710000000000!5m2!1sen!2spk"
+                    title="Google Map London"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2483.4754593798547!2d-0.09890692338161545!3d51.50447387181313!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487603517c24097b%3A0xc3f54ffecfdf5d16!2s30%20Great%20Guildford%20St%2C%20London%20SE1%200HS%2C%20UK!5e0!3m2!1sen!2suk!4v1710000000000!5m2!1sen!2suk"
                     width="100%"
                     height="360"
                     allowFullScreen={true}
