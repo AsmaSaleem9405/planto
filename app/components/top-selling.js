@@ -153,7 +153,7 @@ const PlantCard = ({ plant, isPriority }) => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
-      className="relative h-[430px] w-full bg-gradient-to-b from-[#162218] to-[#0e1610] border-2 border-emerald-500/30 backdrop-blur-md rounded-[2.5rem] p-6 pt-0 flex flex-col justify-between group shadow-[0_0_30px_rgba(0,0,0,0.4)] transition-all duration-300 hover:scale-[1.03] hover:border-emerald-400 hover:shadow-[0_0_40px_rgba(16,185,129,0.15)]"
+      className="relative min-h-[430px] h-auto w-full bg-gradient-to-b from-[#162218] to-[#0e1610] border-2 border-emerald-500/30 backdrop-blur-md rounded-[2.5rem] p-6 pt-0 flex flex-col justify-between group shadow-[0_0_30px_rgba(0,0,0,0.4)] transition-all duration-300 hover:scale-[1.03] hover:border-emerald-400 hover:shadow-[0_0_40px_rgba(16,185,129,0.15)]"
     >
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none group-hover:bg-emerald-400/20 transition-all duration-300"></div>
 
@@ -188,7 +188,7 @@ const PlantCard = ({ plant, isPriority }) => {
 
         <motion.p
           variants={textVariants}
-          className="text-sm text-zinc-400 line-clamp-3 mb-4 leading-relaxed"
+          className="text-sm text-zinc-400 mb-4 leading-relaxed"
         >
           {plant.description}
         </motion.p>
