@@ -121,7 +121,7 @@ export default function Testimonials() {
 <div className="flex items-center justify-center gap-5">
   <span className="w-14 md:w-20 h-[2px] bg-green-400 rounded-full"></span>
 
-  <h2 className="text-3xl md:text-4xl font-semibold tracking-wide text-white">
+  <h2 className="text-3xl md:text-4xl text-center font-semibold tracking-wide text-white">
     Customer Reviews
   </h2>
 
